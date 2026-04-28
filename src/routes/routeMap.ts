@@ -71,6 +71,7 @@ export const routes = {
       root: () => join(APP, 'settings'),
       organization: () => join(APP, 'settings', 'organization'),
       branding: () => join(APP, 'settings', 'branding'),
+      branches: () => join(APP, 'settings', 'branches'),
       members: () => join(APP, 'settings', 'members'),
       roles: () => join(APP, 'settings', 'roles'),
       billing: () => join(APP, 'settings', 'billing'),

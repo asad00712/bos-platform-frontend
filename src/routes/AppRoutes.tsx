@@ -67,6 +67,7 @@ import {
   SettingsIndexRedirect,
   SettingsLayout,
 } from '@/features/settings'
+import { BranchesPage } from '@/features/branches'
 import { AuditLogPage, SessionsPage } from '@/features/audit'
 import {
   NotificationPreferencesPage,
@@ -353,6 +354,7 @@ export function AppRoutes() {
               <Route index element={<SettingsIndexRedirect />} />
               <Route path="organization" element={<OrganizationSettingsPage />} />
               <Route path="branding" element={<BrandingSettingsPage />} />
+              <Route path="branches" element={<BranchesPage />} />
               <Route path="members" element={<MembersPage />} />
               <Route path="roles" element={<RolesPage />} />
               <Route path="billing" element={<PlanBillingPage />} />

@@ -1,5 +1,6 @@
 import { apiRequest } from '@/api/http'
 import { env } from '@/shared/lib/env'
+import { useActiveBranchStore } from '@/stores/activeBranch.store'
 
 import {
   contactSchema,
@@ -26,7 +27,8 @@ export const crmApi = {
   async listContacts(filters: ListFilters): Promise<ContactsListResponse> {
     if (env.useMocks) {
       await delay()
-      return contactsListResponseSchema.parse(crmMocks.list(filters))
+      const branchId = useActiveBranchStore.getState().branchId ?? undefined
+      return contactsListResponseSchema.parse(crmMocks.list({ ...filters, branchId }))
     }
     const qs = new URLSearchParams()
     if (filters.search) qs.set('search', filters.search)

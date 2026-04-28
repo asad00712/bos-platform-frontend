@@ -202,9 +202,10 @@ const seed: Contact[] = [
 let store: Contact[] = [...seed]
 
 export const crmMocks = {
-  list(filters: ListFilters): ContactsListResponse {
+  list(filters: ListFilters & { branchId?: string }): ContactsListResponse {
     const search = filters.search?.trim().toLowerCase()
     const items = store.filter((c) => {
+      if (filters.branchId && c.branchId !== filters.branchId) return false
       if (filters.status && c.status !== filters.status) return false
       if (filters.sourceId && c.sourceId !== filters.sourceId) return false
       if (filters.tagId && !c.tagIds.includes(filters.tagId)) return false
