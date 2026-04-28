@@ -7,7 +7,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/shared/ui/dialog'
+
 import { useTenant } from '@/shared/hooks/useTenant'
+import { useActiveBranchStore } from '@/stores/activeBranch.store'
 import { useCreateContact } from '../hooks'
 import type { ContactInput } from '../api/crm.contracts'
 import { ContactForm } from './ContactForm'
@@ -19,6 +21,7 @@ type Props = {
 
 export function NewContactDialog({ trigger, onCreated }: Props) {
   const { tenant } = useTenant()
+  const branchId = useActiveBranchStore((s) => s.branchId) ?? 'br-main'
   const [open, setOpen] = useState(false)
   const create = useCreateContact(tenant.id)
 
@@ -31,7 +34,7 @@ export function NewContactDialog({ trigger, onCreated }: Props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>New contact</DialogTitle>
           <DialogDescription>
@@ -40,6 +43,7 @@ export function NewContactDialog({ trigger, onCreated }: Props) {
         </DialogHeader>
 
         <ContactForm
+          defaultValues={{ branchId }}
           onSubmit={handleSubmit}
           onCancel={() => setOpen(false)}
           submitLabel="Create contact"

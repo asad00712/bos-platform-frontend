@@ -1,127 +1,201 @@
 import type {
   Contact,
   ContactActivityList,
-  ContactDetail,
   ContactInput,
   ContactsListResponse,
   ListFilters,
+  OwnerLookup,
   SegmentsResponse,
+  SourceLookup,
+  TagLookup,
 } from './crm.contracts'
 
 const TENANT_CURRENCY = 'USD'
+const DEFAULT_BRANCH = 'br-main'
+
+/* ── lookup tables (mock equivalents of BE entities) ─────────────────────── */
+
+const tagLibrary: TagLookup[] = [
+  { id: 'tag-vip', name: 'vip', color: 'oklch(0.7 0.18 50)' },
+  { id: 'tag-recall-due', name: 'recall-due', color: 'oklch(0.65 0.13 220)' },
+  { id: 'tag-high-value', name: 'high-value', color: 'oklch(0.7 0.16 295)' },
+  { id: 'tag-enterprise', name: 'enterprise', color: 'oklch(0.55 0.18 295)' },
+  { id: 'tag-paused', name: 'paused', color: 'oklch(0.65 0.05 260)' },
+  { id: 'tag-follow-up', name: 'follow-up', color: 'oklch(0.7 0.13 30)' },
+]
+
+const sourceLibrary: SourceLookup[] = [
+  { id: 'src-manual', name: 'Manual', isSystem: true },
+  { id: 'src-website', name: 'Website', isSystem: true },
+  { id: 'src-import', name: 'Import', isSystem: true },
+  { id: 'src-referral', name: 'Referral', isSystem: true },
+  { id: 'src-integration', name: 'Integration', isSystem: true },
+]
+
+const ownerLibrary: OwnerLookup[] = [
+  { userId: 'user-ahmed', name: 'Dr. Ahmed', email: 'ahmed@acme-dental.com' },
+  { userId: 'user-maya', name: 'Maya', email: 'maya@acme-dental.com' },
+  { userId: 'user-owner', name: 'Owner', email: 'owner@acme-dental.com' },
+]
+
+/* ── seed contacts (BE-aligned shape) ────────────────────────────────────── */
 
 const seed: Contact[] = [
   {
     id: 'c-1001',
+    branchId: DEFAULT_BRANCH,
     firstName: 'Sarah',
     lastName: 'Mitchell',
     email: 'sarah.m@example.com',
     phone: '+1 415 555 0182',
+    company: null,
+    jobTitle: null,
+    address: {
+      line1: '12 Pine Street',
+      city: 'San Francisco',
+      state: 'CA',
+      country: 'USA',
+      postalCode: '94110',
+    },
+    sourceId: 'src-referral',
+    originLeadId: null,
     status: 'active',
-    source: 'referral',
+    ownerUserId: 'user-ahmed',
+    notes: 'Prefers afternoons. Insurance via Aetna. Allergic to latex.',
     vertical: 'Dental',
-    tags: ['vip', 'recall-due'],
     ltv: 12_400,
     currency: TENANT_CURRENCY,
-    ownerName: 'Dr. Ahmed',
+    birthday: '1986-03-12',
+    preferredLocale: 'en-US',
     lastActivityAt: hoursAgo(2),
+    tagIds: ['tag-vip', 'tag-recall-due'],
     createdAt: daysAgo(220),
+    updatedAt: hoursAgo(2),
   },
   {
     id: 'c-1002',
+    branchId: DEFAULT_BRANCH,
     firstName: 'Khalid',
     lastName: 'Al-Rashid',
     email: 'khalid@al-rashid-law.com',
     phone: '+971 50 123 4567',
-    status: 'lead',
-    source: 'website',
+    company: 'Al-Rashid Law',
+    jobTitle: 'Managing Partner',
+    address: null,
+    sourceId: 'src-website',
+    originLeadId: null,
+    status: 'active',
+    ownerUserId: 'user-maya',
+    notes: 'Multi-office firm; potential ₹18k retainer. Decision Q2.',
     vertical: 'Law',
-    tags: ['high-value'],
     ltv: 0,
     currency: TENANT_CURRENCY,
-    ownerName: 'Maya',
+    birthday: null,
+    preferredLocale: null,
     lastActivityAt: hoursAgo(26),
+    tagIds: ['tag-high-value'],
     createdAt: daysAgo(8),
+    updatedAt: hoursAgo(26),
   },
   {
     id: 'c-1003',
+    branchId: DEFAULT_BRANCH,
     firstName: 'Greenfield',
     lastName: 'Academy',
     email: 'admin@greenfieldschool.edu',
     phone: '+92 300 456 7890',
+    company: 'Greenfield Academy',
+    jobTitle: null,
+    address: null,
+    sourceId: 'src-integration',
+    originLeadId: null,
     status: 'active',
-    source: 'integration',
+    ownerUserId: 'user-owner',
+    notes: null,
     vertical: 'School',
-    tags: ['enterprise'],
     ltv: 9_400,
     currency: TENANT_CURRENCY,
-    ownerName: 'Owner',
+    birthday: null,
+    preferredLocale: null,
     lastActivityAt: daysAgo(2),
+    tagIds: ['tag-enterprise'],
     createdAt: daysAgo(105),
+    updatedAt: daysAgo(2),
   },
   {
     id: 'c-1004',
+    branchId: DEFAULT_BRANCH,
     firstName: 'Bella',
     lastName: 'Italia',
     email: 'reservations@bella-italia.it',
     phone: '+39 06 555 1234',
+    company: 'Bella Italia',
+    jobTitle: 'General Manager',
+    address: null,
+    sourceId: 'src-manual',
+    originLeadId: null,
     status: 'active',
-    source: 'manual',
+    ownerUserId: 'user-maya',
+    notes: null,
     vertical: 'Restaurant',
-    tags: [],
     ltv: 4_750,
     currency: TENANT_CURRENCY,
-    ownerName: 'Maya',
+    birthday: null,
+    preferredLocale: null,
     lastActivityAt: daysAgo(4),
+    tagIds: [],
     createdAt: daysAgo(150),
+    updatedAt: daysAgo(4),
   },
   {
     id: 'c-1005',
+    branchId: DEFAULT_BRANCH,
     firstName: 'Ahmed',
     lastName: 'Khan',
     email: 'ahmed.khan@clinic.com',
     phone: '+92 321 678 1234',
+    company: null,
+    jobTitle: null,
+    address: null,
+    sourceId: 'src-manual',
+    originLeadId: null,
     status: 'inactive',
-    source: 'manual',
+    ownerUserId: 'user-ahmed',
+    notes: null,
     vertical: 'Medical',
-    tags: ['paused'],
     ltv: 2_100,
     currency: TENANT_CURRENCY,
-    ownerName: 'Dr. Ahmed',
+    birthday: null,
+    preferredLocale: null,
     lastActivityAt: daysAgo(45),
+    tagIds: ['tag-paused'],
     createdAt: daysAgo(360),
-  },
-  {
-    id: 'c-1006',
-    firstName: 'Maria',
-    lastName: 'Garcia',
-    email: 'maria.g@example.com',
-    phone: '+34 612 345 678',
-    status: 'lead',
-    source: 'import',
-    vertical: 'Dental',
-    tags: ['follow-up'],
-    ltv: 0,
-    currency: TENANT_CURRENCY,
-    ownerName: 'Maya',
-    lastActivityAt: daysAgo(1),
-    createdAt: daysAgo(3),
+    updatedAt: daysAgo(45),
   },
   {
     id: 'c-1007',
+    branchId: DEFAULT_BRANCH,
     firstName: 'Tariq',
     lastName: 'Bajwa',
     email: 'tariq@studio.com',
     phone: null,
+    company: 'Bajwa Studio',
+    jobTitle: 'Photographer',
+    address: null,
+    sourceId: 'src-manual',
+    originLeadId: null,
     status: 'archived',
-    source: 'manual',
+    ownerUserId: null,
+    notes: null,
     vertical: 'Dental',
-    tags: [],
     ltv: 850,
     currency: TENANT_CURRENCY,
-    ownerName: null,
+    birthday: null,
+    preferredLocale: null,
     lastActivityAt: daysAgo(180),
+    tagIds: [],
     createdAt: daysAgo(540),
+    updatedAt: daysAgo(180),
   },
 ]
 
@@ -132,10 +206,15 @@ export const crmMocks = {
     const search = filters.search?.trim().toLowerCase()
     const items = store.filter((c) => {
       if (filters.status && c.status !== filters.status) return false
-      if (filters.source && c.source !== filters.source) return false
-      if (filters.tag && !c.tags.includes(filters.tag)) return false
+      if (filters.sourceId && c.sourceId !== filters.sourceId) return false
+      if (filters.tagId && !c.tagIds.includes(filters.tagId)) return false
+      if (filters.ownerUserId && c.ownerUserId !== filters.ownerUserId) return false
       if (search) {
-        const haystack = `${c.firstName} ${c.lastName} ${c.email ?? ''} ${c.phone ?? ''} ${(c.tags ?? []).join(' ')}`.toLowerCase()
+        const tagNames = c.tagIds
+          .map((id) => tagLibrary.find((t) => t.id === id)?.name ?? '')
+          .join(' ')
+        const haystack =
+          `${c.firstName} ${c.lastName ?? ''} ${c.email ?? ''} ${c.phone ?? ''} ${c.company ?? ''} ${tagNames}`.toLowerCase()
         if (!haystack.includes(search)) return false
       }
       return true
@@ -143,72 +222,88 @@ export const crmMocks = {
     return { items, total: items.length }
   },
 
-  get(id: string): ContactDetail | null {
-    const c = store.find((x) => x.id === id)
-    if (!c) return null
-    return {
-      ...c,
-      notes:
-        c.id === 'c-1001'
-          ? 'Prefers afternoons. Insurance via Aetna. Allergic to latex.'
-          : c.id === 'c-1002'
-            ? 'Multi-office firm; potential ₹18k retainer. Decision Q2.'
-            : null,
-      address:
-        c.id === 'c-1001'
-          ? { line1: '12 Pine Street', city: 'San Francisco', country: 'USA' }
-          : null,
-      birthday: c.id === 'c-1001' ? '1986-03-12' : null,
-      preferredLocale: c.id === 'c-1001' ? 'en-US' : null,
-    }
+  get(id: string): Contact | null {
+    return store.find((x) => x.id === id) ?? null
   },
 
-  create(input: ContactInput): ContactDetail {
+  create(input: ContactInput): Contact {
     const id = `c-${Date.now()}`
     const now = new Date().toISOString()
     const created: Contact = {
       id,
+      branchId: input.branchId,
       firstName: input.firstName,
-      lastName: input.lastName,
+      lastName: input.lastName ?? null,
       email: input.email && input.email.length > 0 ? input.email : null,
       phone: input.phone && input.phone.length > 0 ? input.phone : null,
-      status: input.status,
-      source: input.source,
-      vertical: null,
-      tags: input.tags,
+      company: input.company ?? null,
+      jobTitle: input.jobTitle ?? null,
+      address: input.address
+        ? {
+            line1: input.address.line1 ?? null,
+            city: input.address.city ?? null,
+            state: input.address.state ?? null,
+            country: input.address.country ?? null,
+            postalCode: input.address.postalCode ?? null,
+          }
+        : null,
+      sourceId: input.sourceId ?? null,
+      originLeadId: null,
+      status: input.status ?? 'active',
+      ownerUserId: input.ownerUserId ?? null,
+      notes: input.notes ?? null,
+      vertical: input.vertical ?? null,
       ltv: 0,
       currency: TENANT_CURRENCY,
-      ownerName: null,
+      birthday: input.birthday ?? null,
+      preferredLocale: input.preferredLocale ?? null,
       lastActivityAt: now,
+      tagIds: input.tagIds ?? [],
       createdAt: now,
+      updatedAt: now,
     }
     store = [created, ...store]
-    return {
-      ...created,
-      notes: input.notes ?? null,
-      address: null,
-      birthday: null,
-      preferredLocale: null,
-    }
+    return created
   },
 
-  update(id: string, patch: Partial<ContactInput>): ContactDetail | null {
+  update(id: string, patch: Partial<ContactInput>): Contact | null {
     const idx = store.findIndex((x) => x.id === id)
     if (idx < 0) return null
     const current = store[idx]
     const next: Contact = {
       ...current,
       firstName: patch.firstName ?? current.firstName,
-      lastName: patch.lastName ?? current.lastName,
+      lastName: patch.lastName !== undefined ? (patch.lastName || null) : current.lastName,
       email: patch.email !== undefined ? (patch.email || null) : current.email,
       phone: patch.phone !== undefined ? (patch.phone || null) : current.phone,
+      company: patch.company !== undefined ? (patch.company || null) : current.company,
+      jobTitle: patch.jobTitle !== undefined ? (patch.jobTitle || null) : current.jobTitle,
+      address: patch.address
+        ? {
+            line1: patch.address.line1 ?? current.address?.line1 ?? null,
+            city: patch.address.city ?? current.address?.city ?? null,
+            state: patch.address.state ?? current.address?.state ?? null,
+            country: patch.address.country ?? current.address?.country ?? null,
+            postalCode: patch.address.postalCode ?? current.address?.postalCode ?? null,
+          }
+        : current.address,
+      sourceId: patch.sourceId !== undefined ? (patch.sourceId || null) : current.sourceId,
       status: patch.status ?? current.status,
-      source: patch.source ?? current.source,
-      tags: patch.tags ?? current.tags,
+      ownerUserId:
+        patch.ownerUserId !== undefined ? (patch.ownerUserId || null) : current.ownerUserId,
+      notes: patch.notes !== undefined ? (patch.notes || null) : current.notes,
+      vertical: patch.vertical !== undefined ? (patch.vertical || null) : current.vertical,
+      birthday: patch.birthday !== undefined ? (patch.birthday || null) : current.birthday,
+      preferredLocale:
+        patch.preferredLocale !== undefined
+          ? (patch.preferredLocale || null)
+          : current.preferredLocale,
+      tagIds: patch.tagIds ?? current.tagIds,
       lastActivityAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     }
     store[idx] = next
-    return crmMocks.get(id)
+    return next
   },
 
   remove(id: string): boolean {
@@ -220,11 +315,30 @@ export const crmMocks = {
   segments(): SegmentsResponse {
     return {
       items: [
-        { id: 'seg.vip', name: 'VIPs', count: store.filter((c) => c.tags.includes('vip')).length, color: 'oklch(0.7 0.18 50)' },
-        { id: 'seg.leads', name: 'Active leads', count: store.filter((c) => c.status === 'lead').length, color: 'oklch(0.6 0.18 280)' },
-        { id: 'seg.recall', name: 'Recall due', count: store.filter((c) => c.tags.includes('recall-due')).length, color: 'oklch(0.65 0.13 220)' },
-        { id: 'seg.inactive', name: 'Inactive 90+ days', count: store.filter((c) => c.status === 'inactive').length, color: 'oklch(0.65 0.05 260)' },
-        { id: 'seg.enterprise', name: 'Enterprise', count: store.filter((c) => c.tags.includes('enterprise')).length, color: 'oklch(0.55 0.18 295)' },
+        {
+          id: 'seg.vip',
+          name: 'VIPs',
+          count: store.filter((c) => c.tagIds.includes('tag-vip')).length,
+          color: 'oklch(0.7 0.18 50)',
+        },
+        {
+          id: 'seg.recall',
+          name: 'Recall due',
+          count: store.filter((c) => c.tagIds.includes('tag-recall-due')).length,
+          color: 'oklch(0.65 0.13 220)',
+        },
+        {
+          id: 'seg.inactive',
+          name: 'Inactive 90+ days',
+          count: store.filter((c) => c.status === 'inactive').length,
+          color: 'oklch(0.65 0.05 260)',
+        },
+        {
+          id: 'seg.enterprise',
+          name: 'Enterprise',
+          count: store.filter((c) => c.tagIds.includes('tag-enterprise')).length,
+          color: 'oklch(0.55 0.18 295)',
+        },
       ],
     }
   },
@@ -233,12 +347,51 @@ export const crmMocks = {
     if (id !== 'c-1001') return { items: [] }
     return {
       items: [
-        { id: 'act-1', kind: 'invoice', title: 'Invoice #INV-2026-184 paid', body: '$3,200 — Aetna', occurredAt: hoursAgo(2), authorName: 'system' },
-        { id: 'act-2', kind: 'appointment', title: 'Appointment booked', body: 'Crown fitting · Dr. Ahmed', occurredAt: hoursAgo(14), authorName: 'Maya' },
-        { id: 'act-3', kind: 'note', title: 'Call summary', body: 'Confirmed insurance, asked about whitening packages.', occurredAt: daysAgo(2), authorName: 'Maya' },
-        { id: 'act-4', kind: 'email', title: 'Recall reminder sent', body: '6-month checkup', occurredAt: daysAgo(7), authorName: 'system' },
+        {
+          id: 'act-1',
+          kind: 'invoice',
+          title: 'Invoice #INV-2026-184 paid',
+          body: '$3,200 — Aetna',
+          occurredAt: hoursAgo(2),
+          authorName: 'system',
+        },
+        {
+          id: 'act-2',
+          kind: 'appointment',
+          title: 'Appointment booked',
+          body: 'Crown fitting · Dr. Ahmed',
+          occurredAt: hoursAgo(14),
+          authorName: 'Maya',
+        },
+        {
+          id: 'act-3',
+          kind: 'note',
+          title: 'Call summary',
+          body: 'Confirmed insurance, asked about whitening packages.',
+          occurredAt: daysAgo(2),
+          authorName: 'Maya',
+        },
+        {
+          id: 'act-4',
+          kind: 'email',
+          title: 'Recall reminder sent',
+          body: '6-month checkup',
+          occurredAt: daysAgo(7),
+          authorName: 'system',
+        },
       ],
     }
+  },
+
+  /* lookups */
+  tags(): TagLookup[] {
+    return tagLibrary
+  },
+  sources(): SourceLookup[] {
+    return sourceLibrary
+  },
+  owners(): OwnerLookup[] {
+    return ownerLibrary
   },
 }
 

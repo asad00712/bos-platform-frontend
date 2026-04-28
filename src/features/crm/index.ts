@@ -4,7 +4,6 @@ export { SegmentsPage } from './pages/SegmentsPage'
 
 export type {
   Contact,
-  ContactDetail,
   ContactInput,
   ContactStatus,
   Segment,

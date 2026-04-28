@@ -10,7 +10,6 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Lead: Story = { args: { status: 'lead' } }
 export const Active: Story = { args: { status: 'active' } }
 export const Inactive: Story = { args: { status: 'inactive' } }
 export const Archived: Story = { args: { status: 'archived' } }

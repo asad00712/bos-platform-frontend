@@ -15,7 +15,7 @@ import {
 } from '@/shared/ui/empty'
 
 import { useTenant } from '@/shared/hooks/useTenant'
-import { usePermissions } from '@/shared/hooks/usePermissions'
+import { useHasPermission } from '@/shared/auth/useHasPermission'
 import { useDebouncedValue } from '@/shared/hooks/useDebouncedValue'
 
 import { useContactList, useSegments } from '../hooks'
@@ -27,7 +27,7 @@ import { NewContactDialog } from '../components/NewContactDialog'
 export function ContactsListPage() {
   const { t } = useTranslation()
   const { tenant } = useTenant()
-  const { has } = usePermissions()
+  const canWrite = useHasPermission('tenant:contacts:create')
 
   const [filters, setFilters] = useState<ListFilters>({})
   const debouncedSearch = useDebouncedValue(filters.search ?? '', 250)
@@ -42,7 +42,6 @@ export function ContactsListPage() {
 
   const total = list.data?.total ?? 0
   const items = list.data?.items
-  const canWrite = has('crm:write')
 
   return (
     <PageContainer>

@@ -6,10 +6,7 @@ import {
 import { toast } from 'sonner'
 
 import { crmApi } from '../api/crm.api'
-import type {
-  ContactInput,
-  ListFilters,
-} from '../api/crm.contracts'
+import type { ContactInput, ListFilters } from '../api/crm.contracts'
 
 export const crmKeys = {
   list: (tenantId: string, filters: ListFilters) =>
@@ -19,6 +16,9 @@ export const crmKeys = {
   activities: (tenantId: string, id: string) =>
     ['crm.contact.activities', tenantId, id] as const,
   segments: (tenantId: string) => ['crm.segments', tenantId] as const,
+  tags: (tenantId: string) => ['crm.tags', tenantId] as const,
+  sources: (tenantId: string) => ['crm.sources', tenantId] as const,
+  owners: (tenantId: string) => ['crm.owners', tenantId] as const,
 }
 
 export function useContactList(tenantId: string, filters: ListFilters) {
@@ -55,6 +55,30 @@ export function useSegments(tenantId: string) {
   })
 }
 
+export function useTagLookup(tenantId: string) {
+  return useQuery({
+    queryKey: crmKeys.tags(tenantId),
+    queryFn: crmApi.listTags,
+    staleTime: 5 * 60_000,
+  })
+}
+
+export function useSourceLookup(tenantId: string) {
+  return useQuery({
+    queryKey: crmKeys.sources(tenantId),
+    queryFn: crmApi.listSources,
+    staleTime: 5 * 60_000,
+  })
+}
+
+export function useOwnerLookup(tenantId: string) {
+  return useQuery({
+    queryKey: crmKeys.owners(tenantId),
+    queryFn: crmApi.listOwners,
+    staleTime: 5 * 60_000,
+  })
+}
+
 export function useCreateContact(tenantId: string) {
   const qc = useQueryClient()
   return useMutation({
@@ -63,7 +87,7 @@ export function useCreateContact(tenantId: string) {
       void qc.invalidateQueries({ queryKey: ['crm.contacts', tenantId] })
       void qc.invalidateQueries({ queryKey: crmKeys.segments(tenantId) })
       toast.success('Contact created', {
-        description: `${created.firstName} ${created.lastName}`,
+        description: [created.firstName, created.lastName].filter(Boolean).join(' '),
       })
     },
     onError: (error: Error) => {

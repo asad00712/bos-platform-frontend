@@ -3,14 +3,12 @@ import type { ContactStatus } from '../api/crm.contracts'
 
 const STATUS_VARIANT: Record<ContactStatus, 'default' | 'secondary' | 'outline'> = {
   active: 'default',
-  lead: 'secondary',
-  inactive: 'outline',
+  inactive: 'secondary',
   archived: 'outline',
 }
 
 const STATUS_LABEL: Record<ContactStatus, string> = {
   active: 'Active',
-  lead: 'Lead',
   inactive: 'Inactive',
   archived: 'Archived',
 }

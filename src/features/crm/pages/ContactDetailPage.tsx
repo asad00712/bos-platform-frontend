@@ -1,4 +1,4 @@
-﻿import { Link, useNavigate, useParams } from 'react-router'
+import { Link, useNavigate, useParams } from 'react-router'
 import { useState } from 'react'
 import {
   Calendar,
@@ -46,12 +46,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs'
 
 import { formatCurrency, formatDate, formatRelative } from '@/shared/lib/format'
 import { useTenant } from '@/shared/hooks/useTenant'
-import { usePermissions } from '@/shared/hooks/usePermissions'
+import { useHasPermission } from '@/shared/auth/useHasPermission'
 import { routes } from '@/routes/routeMap'
 
 import {
   useContact,
   useDeleteContact,
+  useOwnerLookup,
+  useSourceLookup,
+  useTagLookup,
   useUpdateContact,
 } from '../hooks'
 import type { ContactInput } from '../api/crm.contracts'
@@ -64,16 +67,18 @@ export function ContactDetailPage() {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const { tenant } = useTenant()
-  const { has } = usePermissions()
+  const canWrite = useHasPermission('tenant:contacts:update')
 
   const query = useContact(tenant.id, id)
   const update = useUpdateContact(tenant.id)
   const remove = useDeleteContact(tenant.id)
 
+  const tagsQ = useTagLookup(tenant.id)
+  const sourcesQ = useSourceLookup(tenant.id)
+  const ownersQ = useOwnerLookup(tenant.id)
+
   const [editOpen, setEditOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
-
-  const canWrite = has('crm:write')
 
   if (query.isLoading || !query.data) {
     return (
@@ -115,8 +120,20 @@ export function ContactDetailPage() {
   }
 
   const c = query.data
-  const fullName = `${c.firstName} ${c.lastName}`.trim()
-  const initials = `${c.firstName[0] ?? ''}${c.lastName[0] ?? ''}`.toUpperCase()
+  const fullName = `${c.firstName} ${c.lastName ?? ''}`.trim()
+  const initials = `${c.firstName[0] ?? ''}${c.lastName?.[0] ?? ''}`.toUpperCase()
+  const owner = ownersQ.data?.find((o) => o.userId === c.ownerUserId)
+  const source = sourcesQ.data?.find((s) => s.id === c.sourceId)
+  const tags = (tagsQ.data ?? []).filter((t) => c.tagIds.includes(t.id))
+  const addressLines = c.address
+    ? [
+        c.address.line1,
+        [c.address.city, c.address.state, c.address.postalCode]
+          .filter(Boolean)
+          .join(', '),
+        c.address.country,
+      ].filter(Boolean)
+    : []
 
   const handleEditSubmit = async (values: ContactInput) => {
     await update.mutateAsync({ id: c.id, patch: values })
@@ -133,7 +150,7 @@ export function ContactDetailPage() {
     <PageContainer>
       <PageHeader
         title={fullName}
-        description={c.email ?? c.phone ?? undefined}
+        description={c.email ?? c.phone ?? c.company ?? undefined}
         breadcrumbs={[
           { label: t('navigation.crm'), href: routes.app.crm.root() },
           { label: fullName },
@@ -195,16 +212,27 @@ export function ContactDetailPage() {
             <dl className="space-y-3 text-sm">
               <DetailRow label="Email" value={c.email ?? '—'} />
               <DetailRow label="Phone" value={c.phone ?? '—'} />
+              <DetailRow label="Company" value={c.company ?? '—'} />
+              <DetailRow label="Job title" value={c.jobTitle ?? '—'} />
               <DetailRow
                 label="Owner"
-                value={c.ownerName ?? <span className="text-muted-foreground">Unassigned</span>}
+                value={
+                  owner ? (
+                    owner.name
+                  ) : (
+                    <span className="text-muted-foreground">Unassigned</span>
+                  )
+                }
               />
-              <DetailRow label="Source" value={c.source} capitalize />
+              <DetailRow label="Source" value={source?.name ?? '—'} />
               <DetailRow label="Vertical" value={c.vertical ?? '—'} />
               <DetailRow
                 label="LTV"
                 value={formatCurrency(c.ltv, c.currency, { maximumFractionDigits: 0 })}
               />
+              {c.birthday ? (
+                <DetailRow label="Birthday" value={formatDate(c.birthday)} />
+              ) : null}
               <DetailRow label="Created" value={formatDate(c.createdAt)} />
               {c.lastActivityAt ? (
                 <DetailRow
@@ -214,15 +242,26 @@ export function ContactDetailPage() {
               ) : null}
             </dl>
 
-            {c.tags.length > 0 ? (
+            {addressLines.length > 0 ? (
+              <div className="space-y-1.5">
+                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  Address
+                </p>
+                <p className="whitespace-pre-line text-sm">
+                  {addressLines.join('\n')}
+                </p>
+              </div>
+            ) : null}
+
+            {tags.length > 0 ? (
               <div className="space-y-1.5">
                 <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                   Tags
                 </p>
                 <div className="flex flex-wrap gap-1">
-                  {c.tags.map((tag) => (
-                    <Badge key={tag} variant="outline">
-                      {tag}
+                  {tags.map((tag) => (
+                    <Badge key={tag.id} variant="outline">
+                      {tag.name}
                     </Badge>
                   ))}
                 </div>
@@ -316,20 +355,29 @@ export function ContactDetailPage() {
 
       {/* Edit dialog */}
       <Dialog open={editOpen} onOpenChange={setEditOpen}>
-        <DialogContent className="sm:max-w-lg">
+        <DialogContent className="sm:max-w-2xl">
           <DialogHeader>
             <DialogTitle>Edit contact</DialogTitle>
-            <DialogDescription>Update name, contact info, status, or notes.</DialogDescription>
+            <DialogDescription>
+              Update name, contact info, address, status, or notes.
+            </DialogDescription>
           </DialogHeader>
           <ContactForm
             defaultValues={{
+              branchId: c.branchId,
               firstName: c.firstName,
-              lastName: c.lastName,
+              lastName: c.lastName ?? undefined,
               email: c.email ?? '',
               phone: c.phone ?? '',
+              company: c.company ?? undefined,
+              jobTitle: c.jobTitle ?? undefined,
+              address: c.address ?? undefined,
               status: c.status,
-              source: c.source,
-              tags: c.tags,
+              sourceId: c.sourceId ?? undefined,
+              ownerUserId: c.ownerUserId ?? undefined,
+              vertical: c.vertical ?? undefined,
+              birthday: c.birthday ?? undefined,
+              tagIds: c.tagIds,
               notes: c.notes ?? '',
             }}
             onSubmit={handleEditSubmit}
@@ -371,18 +419,16 @@ export function ContactDetailPage() {
 function DetailRow({
   label,
   value,
-  capitalize = false,
 }: {
   label: string
   value: React.ReactNode
-  capitalize?: boolean
 }) {
   return (
     <div className="flex items-start justify-between gap-3">
       <dt className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
         {label}
       </dt>
-      <dd className={capitalize ? 'capitalize' : undefined}>{value}</dd>
+      <dd className="text-end">{value}</dd>
     </div>
   )
 }

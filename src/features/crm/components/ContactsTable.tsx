@@ -17,7 +17,7 @@ import { formatCurrency, formatRelative } from '@/shared/lib/format'
 import { routes } from '@/routes/routeMap'
 
 import { useTenant } from '@/shared/hooks/useTenant'
-import { useDeleteContact } from '../hooks'
+import { useDeleteContact, useOwnerLookup, useTagLookup } from '../hooks'
 import type { Contact } from '../api/crm.contracts'
 import { ContactStatusBadge } from './ContactStatusBadge'
 
@@ -31,6 +31,15 @@ export function ContactsTable({ data, isLoading, toolbar }: Props) {
   const navigate = useNavigate()
   const { tenant } = useTenant()
   const remove = useDeleteContact(tenant.id)
+  const tagsQ = useTagLookup(tenant.id)
+  const ownersQ = useOwnerLookup(tenant.id)
+
+  const tags = tagsQ.data ?? []
+  const owners = ownersQ.data ?? []
+
+  const tagById = (id: string) => tags.find((t) => t.id === id)
+  const ownerById = (id: string | null) =>
+    id ? owners.find((o) => o.userId === id) : undefined
 
   const columns: ColumnDef<Contact>[] = [
     {
@@ -46,12 +55,12 @@ export function ContactsTable({ data, isLoading, toolbar }: Props) {
           >
             <Avatar className="size-8">
               <AvatarFallback className="text-xs">
-                {(c.firstName[0] ?? '') + (c.lastName[0] ?? '')}
+                {(c.firstName[0] ?? '') + (c.lastName?.[0] ?? '')}
               </AvatarFallback>
             </Avatar>
             <div className="space-y-0.5">
               <div className="font-medium leading-tight">
-                {c.firstName} {c.lastName}
+                {c.firstName} {c.lastName ?? ''}
               </div>
               {c.email ? (
                 <div className="text-xs text-muted-foreground">{c.email}</div>
@@ -67,30 +76,35 @@ export function ContactsTable({ data, isLoading, toolbar }: Props) {
       cell: ({ row }) => <ContactStatusBadge status={row.original.status} />,
     },
     {
-      accessorKey: 'tags',
+      accessorKey: 'tagIds',
       header: 'Tags',
       cell: ({ row }) =>
-        row.original.tags.length > 0 ? (
+        row.original.tagIds.length > 0 ? (
           <div className="flex flex-wrap gap-1">
-            {row.original.tags.map((tag) => (
-              <Badge key={tag} variant="outline" className="text-[10px]">
-                {tag}
-              </Badge>
-            ))}
+            {row.original.tagIds.map((id) => {
+              const t = tagById(id)
+              return (
+                <Badge key={id} variant="outline" className="text-[10px]">
+                  {t?.name ?? id}
+                </Badge>
+              )
+            })}
           </div>
         ) : (
           <span className="text-xs text-muted-foreground">—</span>
         ),
     },
     {
-      accessorKey: 'ownerName',
+      accessorKey: 'ownerUserId',
       header: 'Owner',
-      cell: ({ row }) =>
-        row.original.ownerName ? (
-          <span className="text-sm">{row.original.ownerName}</span>
+      cell: ({ row }) => {
+        const owner = ownerById(row.original.ownerUserId)
+        return owner ? (
+          <span className="text-sm">{owner.name}</span>
         ) : (
           <span className="text-xs text-muted-foreground">Unassigned</span>
-        ),
+        )
+      },
     },
     {
       accessorKey: 'lastActivityAt',

@@ -13,6 +13,8 @@ import {
 } from '@/shared/ui/select'
 import { Button } from '@/shared/ui/button'
 
+import { useTenant } from '@/shared/hooks/useTenant'
+import { useOwnerLookup, useSourceLookup, useTagLookup } from '../hooks'
 import type { ListFilters } from '../api/crm.contracts'
 
 type Props = {
@@ -22,27 +24,23 @@ type Props = {
 
 const STATUS_OPTIONS: { label: string; value: ListFilters['status'] | 'all' }[] = [
   { label: 'All statuses', value: 'all' },
-  { label: 'Lead', value: 'lead' },
   { label: 'Active', value: 'active' },
   { label: 'Inactive', value: 'inactive' },
   { label: 'Archived', value: 'archived' },
 ]
 
-const SOURCE_OPTIONS: { label: string; value: ListFilters['source'] | 'all' }[] = [
-  { label: 'All sources', value: 'all' },
-  { label: 'Manual', value: 'manual' },
-  { label: 'Website', value: 'website' },
-  { label: 'Import', value: 'import' },
-  { label: 'Referral', value: 'referral' },
-  { label: 'Integration', value: 'integration' },
-]
-
 export function ContactFilters({ value, onChange }: Props) {
+  const { tenant } = useTenant()
+  const sourcesQ = useSourceLookup(tenant.id)
+  const tagsQ = useTagLookup(tenant.id)
+  const ownersQ = useOwnerLookup(tenant.id)
+
   const isFiltered =
     Boolean(value.search) ||
     Boolean(value.status) ||
-    Boolean(value.source) ||
-    Boolean(value.tag)
+    Boolean(value.sourceId) ||
+    Boolean(value.tagId) ||
+    Boolean(value.ownerUserId)
 
   return (
     <div className="flex flex-wrap items-center gap-2">
@@ -51,7 +49,7 @@ export function ContactFilters({ value, onChange }: Props) {
           <Search className="size-4" />
         </InputGroupAddon>
         <InputGroupInput
-          placeholder="Search by name, email, phone…"
+          placeholder="Search by name, email, phone, company…"
           value={value.search ?? ''}
           onChange={(e) => onChange({ ...value, search: e.target.value })}
         />
@@ -60,10 +58,13 @@ export function ContactFilters({ value, onChange }: Props) {
       <Select
         value={value.status ?? 'all'}
         onValueChange={(v) =>
-          onChange({ ...value, status: v === 'all' ? undefined : (v as ListFilters['status']) })
+          onChange({
+            ...value,
+            status: v === 'all' ? undefined : (v as ListFilters['status']),
+          })
         }
       >
-        <SelectTrigger className="w-[150px]">
+        <SelectTrigger className="w-[140px]">
           <SelectValue placeholder="Status" />
         </SelectTrigger>
         <SelectContent>
@@ -76,18 +77,57 @@ export function ContactFilters({ value, onChange }: Props) {
       </Select>
 
       <Select
-        value={value.source ?? 'all'}
+        value={value.sourceId ?? 'all'}
         onValueChange={(v) =>
-          onChange({ ...value, source: v === 'all' ? undefined : (v as ListFilters['source']) })
+          onChange({ ...value, sourceId: v === 'all' ? undefined : v })
         }
       >
         <SelectTrigger className="w-[150px]">
           <SelectValue placeholder="Source" />
         </SelectTrigger>
         <SelectContent>
-          {SOURCE_OPTIONS.map((o) => (
-            <SelectItem key={o.value} value={String(o.value)}>
-              {o.label}
+          <SelectItem value="all">All sources</SelectItem>
+          {(sourcesQ.data ?? []).map((s) => (
+            <SelectItem key={s.id} value={s.id}>
+              {s.name}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+      <Select
+        value={value.tagId ?? 'all'}
+        onValueChange={(v) =>
+          onChange({ ...value, tagId: v === 'all' ? undefined : v })
+        }
+      >
+        <SelectTrigger className="w-[150px]">
+          <SelectValue placeholder="Tag" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">All tags</SelectItem>
+          {(tagsQ.data ?? []).map((t) => (
+            <SelectItem key={t.id} value={t.id}>
+              {t.name}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+      <Select
+        value={value.ownerUserId ?? 'all'}
+        onValueChange={(v) =>
+          onChange({ ...value, ownerUserId: v === 'all' ? undefined : v })
+        }
+      >
+        <SelectTrigger className="w-[150px]">
+          <SelectValue placeholder="Owner" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">All owners</SelectItem>
+          {(ownersQ.data ?? []).map((o) => (
+            <SelectItem key={o.userId} value={o.userId}>
+              {o.name}
             </SelectItem>
           ))}
         </SelectContent>

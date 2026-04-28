@@ -21,13 +21,14 @@ export const Edit: Story = {
   args: {
     submitLabel: 'Save changes',
     defaultValues: {
+      branchId: 'br-main',
       firstName: 'Sarah',
       lastName: 'Mitchell',
       email: 'sarah.m@example.com',
       phone: '+1 415 555 0182',
       status: 'active',
-      source: 'referral',
-      tags: ['vip'],
+      sourceId: 'src-referral',
+      tagIds: ['tag-vip'],
       notes: 'Prefers afternoons.',
     },
   },
