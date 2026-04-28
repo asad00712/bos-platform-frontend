@@ -1,10 +1,19 @@
+import { useActiveBranchStore } from '../stores/activeBranch.store'
 import { useSessionStore } from '../stores/session.store'
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3001/api/v1'
 
+export const apiBaseUrl = API_BASE_URL
+
 type ApiRequestOptions = RequestInit & {
   auth?: boolean
+  /**
+   * Skip auto-injection of the `X-Branch-Id` header. Use for endpoints
+   * that don't operate within a branch scope (e.g. /branches itself,
+   * /auth/*).
+   */
+  branchScope?: boolean
 }
 
 export class ApiError extends Error {
@@ -32,6 +41,13 @@ export async function apiRequest<T>(
 
   if (options.auth !== false && accessToken) {
     headers.set('authorization', `Bearer ${accessToken}`)
+  }
+
+  if (options.branchScope !== false) {
+    const branchId = useActiveBranchStore.getState().branchId
+    if (branchId && !headers.has('x-branch-id')) {
+      headers.set('x-branch-id', branchId)
+    }
   }
 
   let response: Response

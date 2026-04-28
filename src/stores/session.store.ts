@@ -10,6 +10,13 @@ type SessionState = {
   accessTokenExpiresAt: string | null
   user: UserResponse | null
   tenant: TenantContext
+  /**
+   * BE-style RBAC permission slugs (e.g. `tenant:contacts:view_branch`).
+   * Distinct from `tenant.permissions` which is the legacy feature-flag
+   * union. Empty set means "permissions not loaded yet" — the
+   * `useHasPermission` hook treats that as permissive (mock mode).
+   */
+  permissions: Set<string>
   setAuthenticatedSession: (payload: {
     accessToken: string
     accessTokenExpiresAt: string
@@ -19,6 +26,7 @@ type SessionState = {
     accessToken: string
     accessTokenExpiresAt: string
   }) => void
+  setPermissions: (permissions: Iterable<string>) => void
   setStatus: (status: SessionStatus) => void
   setTenant: (tenant: TenantContext) => void
   clearSession: () => void
@@ -92,10 +100,12 @@ export const useSessionStore = create<SessionState>((set) => ({
   accessTokenExpiresAt: null,
   user: null,
   tenant: demoTenant,
+  permissions: new Set<string>(),
   setAuthenticatedSession: ({ accessToken, accessTokenExpiresAt, user }) =>
     set({ status: 'ready', accessToken, accessTokenExpiresAt, user }),
   setAccessToken: ({ accessToken, accessTokenExpiresAt }) =>
     set({ accessToken, accessTokenExpiresAt }),
+  setPermissions: (permissions) => set({ permissions: new Set(permissions) }),
   setStatus: (status) => set({ status }),
   setTenant: (tenant) => set({ tenant }),
   clearSession: () =>
@@ -104,5 +114,6 @@ export const useSessionStore = create<SessionState>((set) => ({
       accessToken: null,
       accessTokenExpiresAt: null,
       user: null,
+      permissions: new Set<string>(),
     }),
 }))
