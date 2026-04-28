@@ -1,0 +1,106 @@
+{
+  "title": "Dental workspace",
+  "actions": {
+    "newPatient": "New patient",
+    "bookAppointment": "Book appointment"
+  },
+  "patient": {
+    "status": {
+      "active": "Active",
+      "recall_due": "Recall due",
+      "inactive": "Inactive",
+      "archived": "Archived"
+    },
+    "tabs": {
+      "chart": "Tooth chart",
+      "plans": "Treatment plans",
+      "imaging": "Imaging",
+      "billing": "Billing"
+    },
+    "fields": {
+      "chart": "Chart",
+      "email": "Email",
+      "phone": "Phone",
+      "dob": "DOB",
+      "insurer": "Insurer",
+      "primaryDentist": "Primary dentist",
+      "lastVisit": "Last visit",
+      "recallDue": "Recall due",
+      "outstanding": "Outstanding"
+    }
+  },
+  "chart": {
+    "addMark": "Add mark",
+    "history": "History",
+    "noMarks": "No marks yet.",
+    "wholeTooth": "Whole tooth",
+    "condition": "Condition",
+    "surface": "Surface",
+    "notes": "Notes",
+    "legendHint": "Click a tooth to view or edit marks."
+  },
+  "kind": {
+    "healthy": "Healthy",
+    "caries": "Caries",
+    "restoration": "Restoration",
+    "crown": "Crown",
+    "root_canal": "Root canal",
+    "extraction": "Extraction",
+    "implant": "Implant",
+    "watch": "Watch"
+  },
+  "surface": {
+    "mesial": "Mesial",
+    "distal": "Distal",
+    "occlusal": "Occlusal",
+    "buccal": "Buccal",
+    "lingual": "Lingual"
+  },
+  "plans": {
+    "summary": "Summary",
+    "totalFee": "Total fee",
+    "insurance": "Insurance",
+    "patientPays": "Patient pays",
+    "presented": "Presented",
+    "accepted": "Accepted",
+    "noProcedures": "No procedures yet"
+  },
+  "procedure": {
+    "status": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "recalls": {
+    "title": "Recall queue",
+    "subtitle": "Patients due for follow-up cleanings, checkups, or imaging.",
+    "empty": "No recalls due",
+    "emptyHint": "Patients due for a follow-up will appear here."
+  },
+  "claims": {
+    "title": "Insurance claims",
+    "subtitle": "Claim status across all insurers.",
+    "status": {
+      "draft": "Draft",
+      "submitted": "Submitted",
+      "approved": "Approved",
+      "partial": "Partial",
+      "denied": "Denied",
+      "paid": "Paid"
+    }
+  },
+  "providers": {
+    "title": "Insurance providers",
+    "subtitle": "Insurers your patients are enrolled with."
+  },
+  "codes": {
+    "title": "Procedure codes",
+    "subtitle": "CDT codes used in treatment plans, procedures, and claims."
+  },
+  "toast": {
+    "added": "Patient added",
+    "updated": "Patient updated"
+  }
+}

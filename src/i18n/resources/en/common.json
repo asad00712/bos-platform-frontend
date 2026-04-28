@@ -1,0 +1,109 @@
+{
+  "appName": "BOS",
+  "tagline": "Operating System",
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "new": "New",
+    "search": "Search",
+    "filter": "Filter",
+    "export": "Export",
+    "import": "Import",
+    "refresh": "Refresh",
+    "retry": "Retry",
+    "close": "Close",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "more": "More",
+    "open": "Open",
+    "viewAll": "View all"
+  },
+  "states": {
+    "loading": "Loading…",
+    "loadingSession": "Loading session…",
+    "empty": "Nothing here yet",
+    "error": "Something went wrong",
+    "saving": "Saving…",
+    "saved": "Saved"
+  },
+  "navigation": {
+    "groups": {
+      "command": "Command",
+      "modules": "Core modules",
+      "intelligence": "Intelligence",
+      "workspace": "Workspace"
+    },
+    "dashboard": "Dashboard",
+    "crm": "Contacts",
+    "scheduling": "Scheduling",
+    "billing": "Billing",
+    "hrm": "Team",
+    "documents": "Documents",
+    "communication": "Inbox",
+    "automation": "Automations",
+    "reports": "Reports",
+    "audit": "Audit",
+    "settings": "Settings",
+    "support": "Support",
+    "notifications": "Notifications",
+    "dentalWorkspace": "Dental workspace",
+    "schoolWorkspace": "School workspace",
+    "medicalWorkspace": "Medical workspace",
+    "lawWorkspace": "Cases",
+    "restaurantWorkspace": "Restaurant",
+    "gymWorkspace": "Gym",
+    "salonWorkspace": "Salon",
+    "retailWorkspace": "Retail"
+  },
+  "topbar": {
+    "search": "Search anything…",
+    "searchPlaceholder": "Search patients, invoices, appointments…",
+    "quickCreate": "Quick Create",
+    "notifications": "Notifications",
+    "help": "Help",
+    "noNotifications": "You're all caught up.",
+    "openMenu": "Open menu",
+    "shortcut": "⌘K"
+  },
+  "quickCreate": {
+    "title": "Quick create",
+    "contact": "New contact",
+    "appointment": "New appointment",
+    "invoice": "New invoice",
+    "task": "New automation"
+  },
+  "verticals": {
+    "dental": "Dental Clinic",
+    "school": "School",
+    "medical": "Medical Clinic",
+    "law": "Law Firm",
+    "restaurant": "Restaurant",
+    "gym": "Gym",
+    "salon": "Salon",
+    "retail": "Retail"
+  },
+  "theme": {
+    "label": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "locale": {
+    "label": "Language",
+    "en": "English",
+    "ar": "العربية",
+    "ur": "اردو",
+    "es": "Español",
+    "hi": "हिन्दी"
+  },
+  "profile": {
+    "myProfile": "My profile",
+    "settings": "Account settings",
+    "logout": "Log out"
+  }
+}

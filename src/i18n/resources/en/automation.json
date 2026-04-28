@@ -1,0 +1,79 @@
+{
+  "title": "Automations",
+  "subtitle": "Workflows, triggers, and run history.",
+  "actions": {
+    "newWorkflow": "New workflow",
+    "useTemplate": "Use template",
+    "pause": "Pause",
+    "activate": "Activate",
+    "markDraft": "Mark as draft",
+    "delete": "Delete workflow"
+  },
+  "status": {
+    "active": "Active",
+    "paused": "Paused",
+    "draft": "Draft"
+  },
+  "trigger": {
+    "event": "Event",
+    "schedule": "Schedule",
+    "webhook": "Webhook",
+    "manual": "Manual"
+  },
+  "run": {
+    "queued": "Queued",
+    "running": "Running",
+    "succeeded": "Succeeded",
+    "failed": "Failed",
+    "cancelled": "Cancelled"
+  },
+  "table": {
+    "workflow": "Workflow",
+    "trigger": "Trigger",
+    "status": "Status",
+    "runs30d": "30d runs",
+    "success": "Success",
+    "lastRun": "Last run"
+  },
+  "form": {
+    "name": "Name",
+    "description": "Description",
+    "triggerKind": "Trigger type",
+    "triggerLabel": "Trigger label",
+    "triggerLabelHint": "e.g. Daily at 9 AM, or appointment.no_show"
+  },
+  "detail": {
+    "stepsTitle": "Steps",
+    "stepsEmpty": "No steps yet",
+    "stepsHint": "The visual builder ships in Phase 9. For now, steps are read-only.",
+    "stats30d": "30-day stats",
+    "runs": "Runs",
+    "successRate": "Success rate",
+    "lastRun": "Last run",
+    "created": "Created",
+    "recentRuns": "Recent runs",
+    "noRuns": "No runs yet"
+  },
+  "runs": {
+    "title": "Run history",
+    "subtitle": "Every workflow execution across your tenant.",
+    "empty": "No runs yet",
+    "emptyHint": "Workflows that have fired will appear here."
+  },
+  "templates": {
+    "title": "Template gallery",
+    "subtitle": "Curated workflows you can clone in one click.",
+    "empty": "No templates yet"
+  },
+  "delete": {
+    "title": "Delete workflow?",
+    "body": "Permanently removes this workflow and its run history. This cannot be undone."
+  },
+  "toast": {
+    "created": "Workflow created",
+    "activated": "Workflow activated",
+    "paused": "Workflow paused",
+    "draft": "Workflow saved as draft",
+    "deleted": "Workflow deleted"
+  }
+}

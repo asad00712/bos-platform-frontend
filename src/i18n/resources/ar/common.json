@@ -1,0 +1,26 @@
+{
+  "appName": "BOS",
+  "tagline": "نظام التشغيل",
+  "actions": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "create": "إنشاء",
+    "new": "جديد",
+    "search": "بحث",
+    "filter": "تصفية",
+    "export": "تصدير",
+    "import": "استيراد",
+    "close": "إغلاق",
+    "confirm": "تأكيد",
+    "back": "رجوع",
+    "next": "التالي",
+    "submit": "إرسال"
+  },
+  "states": {
+    "loading": "جارٍ التحميل…",
+    "empty": "لا يوجد شيء هنا بعد",
+    "error": "حدث خطأ ما"
+  }
+}

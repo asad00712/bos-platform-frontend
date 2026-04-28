@@ -1,0 +1,158 @@
+{
+  "title": "School workspace",
+  "actions": {
+    "admitStudent": "Admit student",
+    "takeAttendance": "Take attendance",
+    "openGradebook": "Open gradebook",
+    "publishReport": "Publish report card"
+  },
+  "student": {
+    "status": {
+      "enrolled": "Enrolled",
+      "on_leave": "On leave",
+      "graduated": "Graduated",
+      "withdrawn": "Withdrawn",
+      "suspended": "Suspended"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "academics": "Academics",
+      "fees": "Fees",
+      "parents": "Parents",
+      "logistics": "Logistics"
+    },
+    "fields": {
+      "admission": "Admission #",
+      "rollNumber": "Roll number",
+      "class": "Class",
+      "section": "Section",
+      "homeroom": "Homeroom teacher",
+      "guardian": "Guardian",
+      "guardianPhone": "Guardian phone",
+      "guardianEmail": "Guardian email",
+      "blood": "Blood group",
+      "allergies": "Allergies",
+      "address": "Address",
+      "enrolledAt": "Enrolled",
+      "attendance": "Attendance",
+      "outstanding": "Outstanding fees"
+    }
+  },
+  "attendance": {
+    "states": {
+      "present": "Present",
+      "absent": "Absent",
+      "late": "Late",
+      "excused": "Excused",
+      "sick": "Sick"
+    },
+    "markAllPresent": "Mark all present",
+    "summary": "Attendance overview",
+    "todayLabel": "Attendance today"
+  },
+  "exam": {
+    "type": {
+      "unit_test": "Unit test",
+      "mid_term": "Mid-term",
+      "final": "Final",
+      "practical": "Practical",
+      "oral": "Oral"
+    },
+    "status": {
+      "scheduled": "Scheduled",
+      "in_progress": "In progress",
+      "graded": "Graded",
+      "published": "Published",
+      "cancelled": "Cancelled"
+    }
+  },
+  "fees": {
+    "status": {
+      "unpaid": "Unpaid",
+      "partial": "Partial",
+      "paid": "Paid",
+      "waived": "Waived",
+      "overdue": "Overdue"
+    },
+    "frequency": {
+      "one_time": "One-time",
+      "monthly": "Monthly",
+      "quarterly": "Quarterly",
+      "termly": "Termly",
+      "annual": "Annual"
+    },
+    "totals": {
+      "expected": "Expected",
+      "collected": "Collected",
+      "outstanding": "Outstanding",
+      "overdue": "Overdue"
+    },
+    "collect": "Collect"
+  },
+  "subjects": {
+    "category": {
+      "core": "Core",
+      "language": "Language",
+      "science": "Science",
+      "arts": "Arts",
+      "sports": "Sports",
+      "elective": "Elective"
+    }
+  },
+  "transport": {
+    "title": "Transport",
+    "stops": "Stops",
+    "vehicle": "Vehicle",
+    "driver": "Driver",
+    "morningPickup": "Morning pickup",
+    "afternoonDrop": "Afternoon drop"
+  },
+  "library": {
+    "title": "Library",
+    "tabs": {
+      "catalog": "Catalog",
+      "issuances": "Issuances"
+    },
+    "status": {
+      "issued": "Issued",
+      "returned": "Returned",
+      "overdue": "Overdue"
+    }
+  },
+  "hostel": {
+    "title": "Hostel",
+    "type": {
+      "boys": "Boys",
+      "girls": "Girls",
+      "staff": "Staff"
+    },
+    "vacant": "Vacant"
+  },
+  "announcements": {
+    "title": "Announcements",
+    "audience": {
+      "school": "School",
+      "class": "Class",
+      "staff": "Staff",
+      "parents": "Parents"
+    },
+    "pinned": "Pinned",
+    "recent": "Recent"
+  },
+  "calendar": {
+    "title": "Academic calendar",
+    "kind": {
+      "holiday": "Holiday",
+      "event": "Event",
+      "exam": "Exam",
+      "parent_meeting": "Parent meeting",
+      "sports": "Sports",
+      "term": "Term"
+    }
+  },
+  "toast": {
+    "studentAdmitted": "Student admitted",
+    "feeCollected": "Fee collected",
+    "attendanceSaved": "Attendance saved"
+  }
+}

@@ -1,0 +1,5 @@
+export { SchoolKpiRowWidget } from './SchoolKpiRow'
+export { AttendanceTodayWidget } from './AttendanceTodayWidget'
+export { UpcomingExamsWidget } from './UpcomingExamsWidget'
+export { AnnouncementsWidget } from './AnnouncementsWidget'
+export { FeesCollectionWidget } from './FeesCollectionWidget'

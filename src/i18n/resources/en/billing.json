@@ -1,0 +1,95 @@
+{
+  "title": "Billing",
+  "subtitle": "Revenue, outstanding balances, and recent payments.",
+  "actions": {
+    "newInvoice": "New invoice",
+    "recordPayment": "Record payment",
+    "voidInvoice": "Void invoice",
+    "deleteInvoice": "Delete invoice",
+    "saveChanges": "Save changes",
+    "addLine": "Add line"
+  },
+  "kpis": {
+    "outstanding": "Outstanding",
+    "overdue": "Overdue",
+    "paidThisMonth": "Paid in last 30 days",
+    "drafts": "Drafts",
+    "draftsHint": "Unsent invoices"
+  },
+  "status": {
+    "draft": "Draft",
+    "sent": "Sent",
+    "partial": "Partial",
+    "paid": "Paid",
+    "overdue": "Overdue",
+    "void": "Void"
+  },
+  "method": {
+    "card": "Card",
+    "cash": "Cash",
+    "bank_transfer": "Bank transfer",
+    "check": "Check",
+    "other": "Other"
+  },
+  "table": {
+    "invoice": "Invoice",
+    "contact": "Contact",
+    "status": "Status",
+    "issued": "Issued",
+    "due": "Due",
+    "total": "Total",
+    "outstanding": "Outstanding"
+  },
+  "form": {
+    "billTo": "Bill to",
+    "issued": "Issued",
+    "due": "Due",
+    "discount": "Discount %",
+    "lineItems": "Line items",
+    "description": "Description",
+    "qty": "Qty",
+    "unitPrice": "Unit price",
+    "tax": "Tax %",
+    "lineTotal": "Line total",
+    "addLineHint": "Add at least one line item",
+    "endAfterStart": "End must be after start.",
+    "notes": "Notes"
+  },
+  "summary": {
+    "title": "Summary",
+    "subtotal": "Subtotal",
+    "tax": "Tax",
+    "discount": "Discount",
+    "total": "Total",
+    "paid": "Paid",
+    "outstanding": "Outstanding"
+  },
+  "payment": {
+    "title": "Record payment",
+    "amount": "Amount",
+    "method": "Method",
+    "received": "Received",
+    "reference": "Reference",
+    "notes": "Notes",
+    "submit": "Record payment",
+    "noneYet": "No payments yet",
+    "noneHint": "Record a payment when you receive money for this invoice."
+  },
+  "void": {
+    "title": "Void invoice?",
+    "body": "Voiding marks the invoice as not collectable. It stays visible for audit.",
+    "keep": "Keep invoice",
+    "confirm": "Void invoice"
+  },
+  "delete": {
+    "title": "Delete invoice?",
+    "body": "Permanently removes the invoice and any linked payments. This cannot be undone."
+  },
+  "toast": {
+    "created": "Invoice created",
+    "updated": "Invoice updated",
+    "voided": "Invoice voided",
+    "deleted": "Invoice deleted",
+    "paymentRecorded": "Payment recorded"
+  }
+}

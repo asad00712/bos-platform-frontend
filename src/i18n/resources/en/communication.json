@@ -1,0 +1,66 @@
+{
+  "title": "Inbox",
+  "actions": {
+    "newMessage": "New message",
+    "send": "Send",
+    "reply": "Reply",
+    "markUnread": "Mark unread",
+    "snooze": "Snooze",
+    "archive": "Archive"
+  },
+  "channel": {
+    "all": "All channels",
+    "email": "Email",
+    "sms": "SMS",
+    "note": "Internal",
+    "call": "Call"
+  },
+  "filters": {
+    "search": "Search conversations…",
+    "channel": "Channel",
+    "unread": "Unread",
+    "clear": "Clear"
+  },
+  "empty": {
+    "list": "Inbox is clear",
+    "listHint": "New emails, SMS, and internal notes will land here.",
+    "pick": "Pick a conversation",
+    "pickHint": "Select a thread from the list to read and reply.",
+    "templates": "No templates yet",
+    "templatesHint": "Author appointment reminders, follow-ups, and invoice nudges to reuse later."
+  },
+  "compose": {
+    "title": "New message",
+    "subtitle": "Send an email, SMS, or post an internal note.",
+    "channel": "Channel",
+    "to": "To",
+    "aboutContact": "About contact",
+    "subject": "Subject",
+    "subjectPlaceholder": "Optional subject",
+    "body": "Body",
+    "smsHint": "Keep it short — SMS limit 160 chars",
+    "noteHint": "Visible only to your team",
+    "default": "Write your message…"
+  },
+  "thread": {
+    "messages": "messages",
+    "replyVia": "Replying via",
+    "internalNote": "internal note",
+    "smsPlaceholder": "Type your SMS reply…",
+    "emailPlaceholder": "Type your email reply…",
+    "notePlaceholder": "Add an internal note…"
+  },
+  "templates": {
+    "title": "Templates",
+    "description": "Reusable message templates with variable placeholders.",
+    "kind": {
+      "email": "Email",
+      "sms": "SMS",
+      "system": "System"
+    }
+  },
+  "toast": {
+    "sent": "Message sent",
+    "sendFailed": "Could not send message"
+  }
+}

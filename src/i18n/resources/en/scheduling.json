@@ -1,0 +1,77 @@
+{
+  "title": "Scheduling",
+  "actions": {
+    "newAppointment": "New appointment",
+    "today": "Today",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "views": {
+    "day": "Day",
+    "week": "Week",
+    "agenda": "Agenda"
+  },
+  "status": {
+    "scheduled": "Scheduled",
+    "confirmed": "Confirmed",
+    "in_progress": "In progress",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "no_show": "No-show"
+  },
+  "kind": {
+    "consultation": "Consultation",
+    "procedure": "Procedure",
+    "follow_up": "Follow-up",
+    "screening": "Screening",
+    "other": "Other"
+  },
+  "form": {
+    "title": "Title",
+    "starts": "Starts",
+    "ends": "Ends",
+    "type": "Type",
+    "status": "Status",
+    "staff": "Staff",
+    "resource": "Room / resource",
+    "contact": "Contact",
+    "notes": "Notes",
+    "endAfterStart": "End must be after start.",
+    "unassigned": "Unassigned"
+  },
+  "detail": {
+    "when": "When",
+    "staff": "Staff",
+    "resource": "Resource",
+    "created": "Created",
+    "notes": "Notes",
+    "noContact": "No contact linked.",
+    "openContact": "Open contact"
+  },
+  "agenda": {
+    "empty": "No appointments",
+    "emptyHint": "Nothing scheduled in this range. Click a slot in week or day view to add one."
+  },
+  "resources": {
+    "title": "Resources",
+    "description": "Rooms, chairs, equipment, and other bookable assets.",
+    "empty": "No resources yet",
+    "emptyHint": "Add operatories, treatment rooms, classrooms, or any other bookable space."
+  },
+  "delete": {
+    "title": "Delete appointment?",
+    "body": "Permanently removes this appointment and any reminders."
+  },
+  "cancelDialog": {
+    "title": "Cancel appointment?",
+    "body": "This marks the appointment as cancelled. The contact will be notified if reminders are configured.",
+    "keep": "Keep appointment",
+    "confirm": "Cancel appointment"
+  },
+  "toast": {
+    "created": "Appointment created",
+    "updated": "Appointment updated",
+    "cancelled": "Appointment cancelled",
+    "deleted": "Appointment deleted"
+  }
+}

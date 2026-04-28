@@ -1,0 +1,8 @@
+{
+  "generic": "Something went wrong. Please try again.",
+  "network": "Unable to reach the server. Check your connection.",
+  "unauthorized": "Your session has expired. Please sign in again.",
+  "forbidden": "You don't have permission to do that.",
+  "notFound": "We couldn't find what you were looking for.",
+  "validation": "Please fix the highlighted fields."
+}

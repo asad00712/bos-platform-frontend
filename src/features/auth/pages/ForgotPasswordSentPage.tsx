@@ -1,36 +1,70 @@
 import { Link, useSearchParams } from 'react-router'
-import { AuthBrandPanel } from '../components/AuthBrandPanel'
-import { ArrowIcon, MailIcon } from '../components/AuthIcons'
+import { ArrowRight, Mail } from 'lucide-react'
+
+import { Button } from '@/shared/ui/button'
+import { Card, CardContent } from '@/shared/ui/card'
+import { routes } from '@/routes/routeMap'
+
+import { AuthLayout } from '../components/AuthLayout'
 
 export function ForgotPasswordSentPage() {
   const [params] = useSearchParams()
   const email = params.get('email') ?? 'you@company.com'
 
   return (
-    <div className="screen active">
-      <div className="split">
-        <AuthBrandPanel
-          eyebrow="Email sent"
-          headline={<>Check your<br /><span>inbox</span></>}
-          description="A reset link has been sent. Click it to set a new password securely."
-        />
-        <div className="right-panel">
-          <div className="form-card" style={{ maxWidth: 400, textAlign: 'center' }}>
-            <div className="success-card">
-              <div className="success-icon"><MailIcon /></div>
-              <div className="success-title">Reset link sent!</div>
-              <div className="success-text">We sent a link to <span className="success-email">{email}</span>. Click it to reset your password.</div>
+    <AuthLayout
+      eyebrow="Email sent"
+      headline={
+        <>
+          Check your
+          <br />
+          <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+            inbox
+          </span>
+        </>
+      }
+      description="A reset link has been sent. Click it to set a new password securely."
+    >
+      <div className="space-y-6">
+        <Card>
+          <CardContent className="space-y-4 p-6 text-center">
+            <div className="mx-auto grid size-12 place-items-center rounded-full bg-primary/10 text-primary">
+              <Mail className="size-6" />
             </div>
-            <Link className="submit-btn" to="/reset-password">
-              I got the email — Set new password
-              <ArrowIcon />
-            </Link>
-            <div className="bottom-link" style={{ marginTop: 16 }}>
-              Didn&apos;t get it? <Link to="/forgot-password">Try again</Link> · <Link to="/login">Back to login</Link>
+            <div className="space-y-1">
+              <h2 className="text-xl font-semibold">Reset link sent</h2>
+              <p className="text-sm text-muted-foreground">
+                We sent a link to <span className="font-medium">{email}</span>.
+                Click it to reset your password.
+              </p>
             </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
+
+        <Button asChild className="w-full">
+          <Link to={routes.resetPassword()}>
+            I got the email — set new password
+            <ArrowRight />
+          </Link>
+        </Button>
+
+        <p className="text-center text-sm text-muted-foreground">
+          Didn&apos;t get it?{' '}
+          <Link
+            to={routes.forgotPassword()}
+            className="font-medium text-primary underline-offset-4 hover:underline"
+          >
+            Try again
+          </Link>{' '}
+          ·{' '}
+          <Link
+            to={routes.login()}
+            className="font-medium text-primary underline-offset-4 hover:underline"
+          >
+            Back to login
+          </Link>
+        </p>
       </div>
-    </div>
+    </AuthLayout>
   )
 }

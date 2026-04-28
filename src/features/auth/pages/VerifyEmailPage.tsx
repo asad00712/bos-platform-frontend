@@ -2,74 +2,175 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate, useSearchParams } from 'react-router'
+import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
-import { authApi } from '../../../api/auth.api'
-import { AuthBrandPanel, AuthFeature } from '../components/AuthBrandPanel'
-import { ArrowIcon, BackIcon, MailIcon } from '../components/AuthIcons'
-import { FormError, TextField } from '../components/AuthFields'
+import { ArrowLeft, ArrowRight, Mail } from 'lucide-react'
 
-const verifySchema = z.object({
-  token: z.string().trim().length(64, 'Paste the 64-character verification token from your email.'),
-})
+import { authApi } from '@/api/auth.api'
+import { routes } from '@/routes/routeMap'
 
-type VerifyForm = z.infer<typeof verifySchema>
+import { Button } from '@/shared/ui/button'
+import { Card, CardContent } from '@/shared/ui/card'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/shared/ui/form'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@/shared/ui/input-group'
+import { Alert, AlertDescription, AlertTitle } from '@/shared/ui/alert'
+
+import { AuthLayout, AuthFeatureItem } from '../components/AuthLayout'
 
 export function VerifyEmailPage() {
+  const { t } = useTranslation(['auth', 'common'])
   const navigate = useNavigate()
   const [params] = useSearchParams()
   const email = params.get('email') ?? 'you@company.com'
   const token = params.get('token') ?? ''
+
+  const schema = z.object({
+    token: z
+      .string()
+      .trim()
+      .length(64, 'Paste the 64-character verification token from your email.'),
+  })
+  type VerifyForm = z.infer<typeof schema>
+
   const form = useForm<VerifyForm>({
-    resolver: zodResolver(verifySchema),
+    resolver: zodResolver(schema),
     defaultValues: { token },
   })
+
   const verify = useMutation({
     mutationFn: authApi.verifyEmail,
-    onSuccess: () => navigate('/login'),
-  })
-  const resend = useMutation({
-    mutationFn: authApi.resendVerifyEmail,
+    onSuccess: () => navigate(routes.login()),
   })
 
+  const resend = useMutation({ mutationFn: authApi.resendVerifyEmail })
+
   return (
-    <div className="screen active">
-      <div className="split">
-        <AuthBrandPanel
-          eyebrow="Almost there"
-          headline={<>Verify your<br /><span>email</span> to continue</>}
-          description="Open the verification link from your email, or paste the 64-character token to activate the owner account."
-          features={
-            <>
-              <AuthFeature icon={<MailIcon />}><strong>Check your email</strong> — code sent to {email}</AuthFeature>
-              <AuthFeature icon={<ArrowIcon />}><strong>Backend aligned</strong> — accepts the verification token issued by auth-service</AuthFeature>
-            </>
-          }
-        />
-        <div className="right-panel">
-          <form className="form-card" style={{ maxWidth: 400 }} onSubmit={form.handleSubmit((values) => verify.mutate(values))}>
-            <Link className="back-link" to="/signup"><BackIcon />Back</Link>
-            <div className="success-card">
-              <div className="success-icon" style={{ background: 'var(--accent-light)' }}><MailIcon /></div>
-              <div className="success-title">Check your inbox</div>
-              <div className="success-text">We sent a verification token to<br /><span className="success-email">{email}</span></div>
+    <AuthLayout
+      eyebrow="Almost there"
+      headline={
+        <>
+          Verify your
+          <br />
+          <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+            email
+          </span>{' '}
+          to continue
+        </>
+      }
+      description="Open the verification link from your email, or paste the 64-character token to activate the owner account."
+      features={
+        <>
+          <AuthFeatureItem icon={<Mail className="size-3.5" />}>
+            <strong>Check your email</strong> — code sent to {email}
+          </AuthFeatureItem>
+          <AuthFeatureItem icon={<ArrowRight className="size-3.5" />}>
+            <strong>Backend aligned</strong> — accepts the auth-service token
+          </AuthFeatureItem>
+        </>
+      }
+    >
+      <div className="space-y-6">
+        <Button variant="ghost" size="sm" asChild className="-ms-2">
+          <Link to={routes.signup()}>
+            <ArrowLeft />
+            {t('common:actions.back')}
+          </Link>
+        </Button>
+
+        <Card>
+          <CardContent className="space-y-4 p-6 text-center">
+            <div className="mx-auto grid size-12 place-items-center rounded-full bg-primary/10 text-primary">
+              <Mail className="size-6" />
             </div>
-            <TextField label="Verification token" required icon={<MailIcon />} placeholder="Paste token from email" error={form.formState.errors.token?.message} {...form.register('token')} />
-            <FormError message={verify.error?.message || resend.error?.message} />
-            {resend.isSuccess && <div className="field-hint">Verification email requested.</div>}
-            <button className="submit-btn" disabled={verify.isPending} type="submit">
-              <ArrowIcon />
-              {verify.isPending ? 'Verifying...' : 'Verify & Enter BOS'}
-            </button>
-            <div className="bottom-link" style={{ marginTop: 16 }}>
+            <div className="space-y-1">
+              <h2 className="text-xl font-semibold">Check your inbox</h2>
+              <p className="text-sm text-muted-foreground">
+                We sent a verification token to{' '}
+                <span className="font-medium">{email}</span>.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit((values) => verify.mutate(values))}
+            className="space-y-4"
+            noValidate
+          >
+            <FormField
+              control={form.control}
+              name="token"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Verification token</FormLabel>
+                  <FormControl>
+                    <InputGroup>
+                      <InputGroupAddon align="inline-start">
+                        <Mail className="size-4" />
+                      </InputGroupAddon>
+                      <InputGroupInput placeholder="Paste token from email" {...field} />
+                    </InputGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {(verify.error || resend.error) && (
+              <Alert variant="destructive">
+                <AlertTitle>{t('common:states.error')}</AlertTitle>
+                <AlertDescription>
+                  {verify.error?.message ?? resend.error?.message}
+                </AlertDescription>
+              </Alert>
+            )}
+
+            {resend.isSuccess ? (
+              <Alert>
+                <AlertDescription>Verification email requested.</AlertDescription>
+              </Alert>
+            ) : null}
+
+            <Button type="submit" className="w-full" disabled={verify.isPending}>
+              {verify.isPending ? t('auth:verify2fa.submitting') : 'Verify & enter BOS'}
+              <ArrowRight />
+            </Button>
+
+            <p className="text-center text-sm text-muted-foreground">
               Didn&apos;t receive it?{' '}
-              <button className="forgot-link" type="button" disabled={!email || email === 'you@company.com'} onClick={() => resend.mutate({ email })}>
+              <Button
+                variant="link"
+                size="sm"
+                className="px-0"
+                disabled={!email || email === 'you@company.com'}
+                onClick={() => resend.mutate({ email })}
+                type="button"
+              >
                 Resend code
-              </button>{' '}
-              · <Link to="/login">Change email</Link>
-            </div>
+              </Button>{' '}
+              ·{' '}
+              <Link
+                to={routes.login()}
+                className="font-medium text-primary underline-offset-4 hover:underline"
+              >
+                Change email
+              </Link>
+            </p>
           </form>
-        </div>
+        </Form>
       </div>
-    </div>
+    </AuthLayout>
   )
 }
