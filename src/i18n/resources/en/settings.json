@@ -1,0 +1,88 @@
+{
+  "title": "Settings",
+  "subtitle": "Tenant configuration, members, integrations, and platform options.",
+  "groups": {
+    "workspace": "Workspace",
+    "team": "Team",
+    "platform": "Platform"
+  },
+  "nav": {
+    "organization": "Organization",
+    "branding": "Branding",
+    "members": "Members",
+    "roles": "Roles & permissions",
+    "billing": "Plan & billing",
+    "integrations": "Integrations",
+    "apiKeys": "API & webhooks",
+    "featureFlags": "Feature flags",
+    "security": "Security",
+    "data": "Data"
+  },
+  "organization": {
+    "title": "Organization",
+    "description": "Public-facing name, slug, and tenant defaults.",
+    "name": "Display name",
+    "slug": "Slug",
+    "slugHint": "Used in URLs. Lowercase, numbers, dashes only.",
+    "locale": "Locale",
+    "timezone": "Timezone",
+    "currency": "Currency",
+    "save": "Save changes"
+  },
+  "branding": {
+    "title": "Brand identity",
+    "description": "Replace the BOS name, accent color, logo, and font for this tenant. Changes apply to every screen.",
+    "appName": "App name",
+    "appNameHint": "Shown in the topbar, login screen, and email templates.",
+    "primary": "Primary color (oklch)",
+    "primaryHint": "Three-value oklch tuple (lightness chroma hue). Pick a preset below or paste your brand value.",
+    "presets": "Presets",
+    "logo": "Logo URL",
+    "favicon": "Favicon URL",
+    "font": "Font family (CSS value)",
+    "fontHint": "Loaded by the tenant; the value goes straight into --font-sans.",
+    "save": "Save branding",
+    "previewTitle": "Preview",
+    "previewHint": "Live preview using the saved branding."
+  },
+  "members": {
+    "title": "Members",
+    "invite": "Invite member",
+    "inviteSubtitle": "Send an email invitation. They'll set their password on first sign-in.",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "role": "Role",
+    "send": "Send invite",
+    "remove": "Remove",
+    "lastActive": "Last active",
+    "status": {
+      "active": "Active",
+      "invited": "Invited",
+      "inactive": "Inactive"
+    },
+    "empty": "No members yet",
+    "emptyHint": "Invite your team to start collaborating."
+  },
+  "roles": {
+    "title": "Roles & permissions",
+    "description": "Built-in roles ship with curated permission sets. Custom roles land in a follow-up.",
+    "builtIn": "Built-in",
+    "members": "members"
+  },
+  "integrations": {
+    "title": "Integrations",
+    "description": "Connect external services. OAuth flows ship in a follow-up.",
+    "connected": "Connected",
+    "notConnected": "Not connected",
+    "connect": "Connect",
+    "manage": "Manage"
+  },
+  "toast": {
+    "orgSaved": "Organization saved",
+    "brandingSaved": "Branding saved",
+    "memberInvited": "Invitation sent",
+    "memberRemoved": "Member removed",
+    "roleChanged": "Role updated"
+  }
+}

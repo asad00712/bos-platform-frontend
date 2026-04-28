@@ -1,49 +1,41 @@
-import { ArrowRight, Layers3 } from 'lucide-react'
+import { Hammer } from 'lucide-react'
+import { PageContainer } from '@/layout/PageContainer'
+import { PageHeader } from '@/shared/ui/page-header'
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from '@/shared/ui/empty'
+import { Card, CardContent } from '@/shared/ui/card'
 
-type ModulePlaceholderPageProps = {
+type Props = {
   title: string
   description: string
 }
 
-export function ModulePlaceholderPage({
-  title,
-  description,
-}: ModulePlaceholderPageProps) {
+export function ModulePlaceholderPage({ title, description }: Props) {
   return (
-    <div className="page-stack">
-      <section className="page-hero">
-        <div>
-          <p className="eyebrow">BOS module</p>
-          <h1>{title}</h1>
-          <p>{description}</p>
-        </div>
-        <button className="secondary-button" type="button">
-          <Layers3 size={17} aria-hidden="true" />
-          <span>Define workflow</span>
-        </button>
-      </section>
-
-      <section className="module-blueprint">
-        <article className="panel">
-          <h2>Frontend contract</h2>
-          <p>
-            This module will plug into the shared app shell, typed API layer,
-            tenant context, vertical terminology, and permission-aware routing.
-          </p>
-        </article>
-        <article className="panel">
-          <h2>Next build slice</h2>
-          <p>
-            Once backend endpoints are confirmed, this page should become the
-            first real list/detail workflow with filters, saved views, empty
-            states, and audit-friendly actions.
-          </p>
-          <button className="text-button" type="button">
-            Open implementation notes
-            <ArrowRight size={16} aria-hidden="true" />
-          </button>
-        </article>
-      </section>
-    </div>
+    <PageContainer>
+      <PageHeader title={title} description={description} />
+      <Card>
+        <CardContent className="p-0">
+          <Empty className="py-16">
+            <EmptyHeader>
+              <EmptyMedia variant="icon">
+                <Hammer />
+              </EmptyMedia>
+              <EmptyTitle>Coming soon</EmptyTitle>
+              <EmptyDescription>
+                This module is on the rebuild plan. Filters, list/detail
+                workflows, empty/error states, and RBAC-aware actions will land
+                in upcoming phases.
+              </EmptyDescription>
+            </EmptyHeader>
+          </Empty>
+        </CardContent>
+      </Card>
+    </PageContainer>
   )
 }

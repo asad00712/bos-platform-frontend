@@ -1,0 +1,41 @@
+{
+  "title": "Notifications",
+  "actions": {
+    "preferences": "Preferences",
+    "markAllRead": "Mark all read"
+  },
+  "kind": {
+    "appointment": "Appointments",
+    "invoice": "Invoices",
+    "lead": "Leads",
+    "support": "Support",
+    "system": "System",
+    "mention": "Mentions"
+  },
+  "preferences": {
+    "title": "Notification preferences",
+    "subtitle": "Pick the channels each event should reach you on.",
+    "save": "Save preferences",
+    "channels": {
+      "push": "In-app",
+      "email": "Email",
+      "sms": "SMS"
+    },
+    "descriptions": {
+      "appointment": "New bookings, reschedules, no-shows.",
+      "invoice": "Created, sent, paid, or overdue.",
+      "lead": "New contacts and lifecycle changes.",
+      "support": "New tickets, replies, escalations.",
+      "system": "Branding, billing, and platform events.",
+      "mention": "When teammates @-mention you."
+    }
+  },
+  "empty": {
+    "title": "You're all caught up",
+    "hint": "New events, invoices, leads, and tickets will land here."
+  },
+  "toast": {
+    "allRead": "Marked all read",
+    "prefsSaved": "Preferences saved"
+  }
+}

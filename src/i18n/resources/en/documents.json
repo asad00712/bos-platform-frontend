@@ -1,0 +1,81 @@
+{
+  "title": "Documents",
+  "actions": {
+    "upload": "Upload",
+    "download": "Download",
+    "delete": "Delete document",
+    "addVersion": "Add version",
+    "requestSignature": "Request signature",
+    "requestAnother": "Request another",
+    "send": "Send request"
+  },
+  "kind": {
+    "contract": "Contract",
+    "consent": "Consent",
+    "template": "Template",
+    "invoice": "Invoice",
+    "medical": "Medical",
+    "general": "General"
+  },
+  "status": {
+    "draft": "Draft",
+    "pending_review": "Pending review",
+    "active": "Active",
+    "archived": "Archived"
+  },
+  "signature": {
+    "pending": "Pending",
+    "sent": "Sent",
+    "signed": "Signed",
+    "declined": "Declined",
+    "expired": "Expired"
+  },
+  "table": {
+    "document": "Document",
+    "kind": "Kind",
+    "status": "Status",
+    "tags": "Tags",
+    "signatures": "Signatures",
+    "updated": "Updated"
+  },
+  "form": {
+    "name": "Name",
+    "kind": "Kind",
+    "status": "Status",
+    "tags": "Tags",
+    "tagsHint": "comma, separated, tags",
+    "notes": "Notes",
+    "signerName": "Signer name",
+    "signerEmail": "Email"
+  },
+  "viewer": {
+    "title": "Document preview",
+    "hint": "Inline preview lands when the file service is wired up. Versions and signatures are fully functional today."
+  },
+  "tabs": {
+    "versions": "Versions",
+    "signatures": "Signatures",
+    "current": "Current"
+  },
+  "empty": {
+    "list": "No documents match",
+    "listHint": "Upload a contract, consent, template, or general file.",
+    "signatures": "No signature requests",
+    "signaturesHint": "Send a secure signing link from the Request signature button."
+  },
+  "delete": {
+    "title": "Delete document?",
+    "body": "Permanently removes this document and all of its versions. This cannot be undone."
+  },
+  "templates": {
+    "title": "Templates",
+    "description": "Reusable document templates."
+  },
+  "toast": {
+    "uploaded": "Document uploaded",
+    "updated": "Document updated",
+    "deleted": "Document deleted",
+    "versionAdded": "Version added",
+    "signatureRequested": "Signature requested"
+  }
+}

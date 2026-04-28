@@ -1,0 +1,102 @@
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query'
+import { toast } from 'sonner'
+
+import { crmApi } from '../api/crm.api'
+import type {
+  ContactInput,
+  ListFilters,
+} from '../api/crm.contracts'
+
+export const crmKeys = {
+  list: (tenantId: string, filters: ListFilters) =>
+    ['crm.contacts', tenantId, filters] as const,
+  detail: (tenantId: string, id: string) =>
+    ['crm.contact', tenantId, id] as const,
+  activities: (tenantId: string, id: string) =>
+    ['crm.contact.activities', tenantId, id] as const,
+  segments: (tenantId: string) => ['crm.segments', tenantId] as const,
+}
+
+export function useContactList(tenantId: string, filters: ListFilters) {
+  return useQuery({
+    queryKey: crmKeys.list(tenantId, filters),
+    queryFn: () => crmApi.listContacts(filters),
+    staleTime: 30_000,
+  })
+}
+
+export function useContact(tenantId: string, id: string | undefined) {
+  return useQuery({
+    queryKey: crmKeys.detail(tenantId, id ?? ''),
+    queryFn: () => crmApi.getContact(id!),
+    enabled: Boolean(id),
+    staleTime: 30_000,
+  })
+}
+
+export function useContactActivities(tenantId: string, id: string | undefined) {
+  return useQuery({
+    queryKey: crmKeys.activities(tenantId, id ?? ''),
+    queryFn: () => crmApi.listContactActivities(id!),
+    enabled: Boolean(id),
+    staleTime: 30_000,
+  })
+}
+
+export function useSegments(tenantId: string) {
+  return useQuery({
+    queryKey: crmKeys.segments(tenantId),
+    queryFn: crmApi.listSegments,
+    staleTime: 60_000,
+  })
+}
+
+export function useCreateContact(tenantId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (input: ContactInput) => crmApi.createContact(input),
+    onSuccess: (created) => {
+      void qc.invalidateQueries({ queryKey: ['crm.contacts', tenantId] })
+      void qc.invalidateQueries({ queryKey: crmKeys.segments(tenantId) })
+      toast.success('Contact created', {
+        description: `${created.firstName} ${created.lastName}`,
+      })
+    },
+    onError: (error: Error) => {
+      toast.error('Could not create contact', { description: error.message })
+    },
+  })
+}
+
+export function useUpdateContact(tenantId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, patch }: { id: string; patch: Partial<ContactInput> }) =>
+      crmApi.updateContact(id, patch),
+    onSuccess: (updated) => {
+      void qc.invalidateQueries({ queryKey: ['crm.contacts', tenantId] })
+      void qc.invalidateQueries({ queryKey: crmKeys.detail(tenantId, updated.id) })
+    },
+    onError: (error: Error) => {
+      toast.error('Could not update contact', { description: error.message })
+    },
+  })
+}
+
+export function useDeleteContact(tenantId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: string) => crmApi.deleteContact(id),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ['crm.contacts', tenantId] })
+      toast.success('Contact deleted')
+    },
+    onError: (error: Error) => {
+      toast.error('Could not delete contact', { description: error.message })
+    },
+  })
+}

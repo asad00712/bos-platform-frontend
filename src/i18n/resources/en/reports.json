@@ -1,0 +1,47 @@
+{
+  "title": "Reports",
+  "subtitle": "Pre-built reports across sales, operations, staff, and governance.",
+  "category": {
+    "all": "All",
+    "sales": "Sales",
+    "operations": "Operations",
+    "staff": "Staff",
+    "patients": "Patients",
+    "governance": "Governance"
+  },
+  "preset": {
+    "today": "Today",
+    "week": "Last 7 days",
+    "month": "Last 30 days",
+    "quarter": "Last 90 days",
+    "year": "Last 12 months",
+    "custom": "Custom"
+  },
+  "kpi": {
+    "totalRevenue": "Total revenue",
+    "invoices": "Invoices",
+    "averageTicket": "Average ticket",
+    "collectedRate": "Collected rate",
+    "appointments": "Appointments",
+    "completed": "Completed",
+    "noShow": "No-show",
+    "averageDuration": "Average duration",
+    "totalHours": "Total hours",
+    "attendance": "Attendance rate",
+    "averagePerEmployee": "Average per employee"
+  },
+  "panels": {
+    "revenueTrend": "Revenue trend",
+    "byMethod": "By payment method",
+    "topContacts": "Top contacts",
+    "appointmentVolume": "Appointment volume",
+    "byKind": "By kind",
+    "byResource": "By resource",
+    "hoursWorked": "Hours worked",
+    "perEmployee": "Per employee"
+  },
+  "library": {
+    "search": "Search reports…",
+    "comingSoon": "Coming soon"
+  }
+}

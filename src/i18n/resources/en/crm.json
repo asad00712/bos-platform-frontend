@@ -1,0 +1,80 @@
+{
+  "title": "Contacts",
+  "subtitle": "Customer data, segments, and lifecycle.",
+  "actions": {
+    "newContact": "New contact",
+    "editContact": "Edit contact",
+    "deleteContact": "Delete contact",
+    "saveChanges": "Save changes"
+  },
+  "filters": {
+    "search": "Search by name, email, phone…",
+    "status": "Status",
+    "source": "Source",
+    "all": "All",
+    "clear": "Clear"
+  },
+  "status": {
+    "lead": "Lead",
+    "active": "Active",
+    "inactive": "Inactive",
+    "archived": "Archived"
+  },
+  "source": {
+    "manual": "Manual",
+    "website": "Website",
+    "import": "Import",
+    "referral": "Referral",
+    "integration": "Integration"
+  },
+  "table": {
+    "name": "Name",
+    "tags": "Tags",
+    "owner": "Owner",
+    "lastActivity": "Last activity",
+    "ltv": "LTV",
+    "unassigned": "Unassigned"
+  },
+  "form": {
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "status": "Status",
+    "source": "Source",
+    "notes": "Notes",
+    "notesPlaceholder": "Add internal notes…"
+  },
+  "detail": {
+    "tabs": {
+      "activity": "Activity",
+      "notes": "Notes",
+      "appointments": "Appointments",
+      "invoices": "Invoices"
+    },
+    "noNotes": "No notes yet",
+    "noAppointments": "No appointments",
+    "noInvoices": "No invoices",
+    "notesHint": "Add internal notes via the edit dialog.",
+    "appointmentsHint": "Once linked to scheduling, upcoming and past appointments appear here.",
+    "invoicesHint": "Once billing connects, this contact's invoices and payments will show up."
+  },
+  "segments": {
+    "title": "Segments",
+    "description": "Saved filters and audience definitions across your CRM.",
+    "empty": "No segments yet",
+    "emptyHint": "Save filters from the contacts list to make them easy to reuse."
+  },
+  "delete": {
+    "title": "Delete contact?",
+    "body": "This permanently removes {{name}} and any associated data. This action cannot be undone."
+  },
+  "toast": {
+    "created": "Contact created",
+    "updated": "Contact updated",
+    "deleted": "Contact deleted",
+    "createFailed": "Could not create contact",
+    "updateFailed": "Could not update contact",
+    "deleteFailed": "Could not delete contact"
+  }
+}

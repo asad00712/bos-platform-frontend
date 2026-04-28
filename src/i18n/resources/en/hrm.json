@@ -1,0 +1,105 @@
+{
+  "title": "Team",
+  "actions": {
+    "addEmployee": "Add employee",
+    "editEmployee": "Edit employee",
+    "removeEmployee": "Remove employee",
+    "requestLeave": "Request leave",
+    "approve": "Approve",
+    "reject": "Reject",
+    "cancelLeave": "Cancel leave",
+    "clockIn": "Clock in",
+    "clockOut": "Clock out"
+  },
+  "kpis": {
+    "headcount": "Headcount",
+    "presentToday": "Present today",
+    "onLeaveToday": "On leave today",
+    "pendingLeaves": "Pending leaves",
+    "newHires": "New hires this month"
+  },
+  "employmentType": {
+    "full_time": "Full time",
+    "part_time": "Part time",
+    "contract": "Contract",
+    "intern": "Intern"
+  },
+  "status": {
+    "active": "Active",
+    "on_leave": "On leave",
+    "inactive": "Inactive",
+    "terminated": "Terminated"
+  },
+  "leaveKind": {
+    "vacation": "Vacation",
+    "sick": "Sick",
+    "personal": "Personal",
+    "unpaid": "Unpaid",
+    "bereavement": "Bereavement"
+  },
+  "leaveStatus": {
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled"
+  },
+  "attendance": {
+    "title": "Attendance",
+    "present": "Present",
+    "late": "Late",
+    "absent": "Absent",
+    "on_leave": "On leave",
+    "in": "In",
+    "out": "Out",
+    "hours": "Hours",
+    "notClockedIn": "Not clocked in yet today.",
+    "noneToday": "No attendance yet today",
+    "timeClock": "Time clock"
+  },
+  "form": {
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "jobTitle": "Job title",
+    "department": "Department",
+    "type": "Type",
+    "status": "Status",
+    "startDate": "Start date",
+    "manager": "Manager",
+    "notes": "Notes",
+    "ptoBalance": "PTO balance",
+    "managerHint": "Reports to…",
+    "leaveType": "Type",
+    "start": "Start",
+    "end": "End",
+    "reason": "Reason",
+    "endAfterStart": "End date must be on or after start.",
+    "workingDays": "{{count}} working day requested.",
+    "workingDays_other": "{{count}} working days requested."
+  },
+  "table": {
+    "employee": "Employee",
+    "role": "Role",
+    "type": "Type",
+    "started": "Started",
+    "dates": "Dates",
+    "days": "Days",
+    "decided": "Decided"
+  },
+  "remove": {
+    "title": "Remove employee?",
+    "body": "This permanently removes {{name}} from your team. Past attendance and leave records stay for audit."
+  },
+  "toast": {
+    "added": "Employee added",
+    "updated": "Employee updated",
+    "removed": "Employee removed",
+    "clockedIn": "Clocked in",
+    "clockedOut": "Clocked out",
+    "leaveSubmitted": "Leave request submitted",
+    "leaveApproved": "Leave approved",
+    "leaveRejected": "Leave rejected",
+    "leaveCancelled": "Leave cancelled"
+  }
+}

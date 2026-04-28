@@ -1,104 +1,170 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=DM+Serif+Display&display=swap");
-@import "./styles/dashboard-design.css";
-@import "./styles/auth-design.css";
+
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@import "./styles/tokens.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  html[dir="rtl"] {
+    direction: rtl;
+  }
+
+  /* ---------- surface-gradient system ----------
+     Driven by useThemePrefs → applyThemePrefs(). The user picks tone +
+     intensity + direction + scope; we expose two CSS variables on
+     <html> + a `data-card-gradient` attribute. The rules below decide
+     which surfaces inherit the gradient layer.
+
+     First-paint fallbacks ensure heroes still look intentional before
+     the runtime hook fires.
+  */
+  :root {
+    --surface-gradient-card: none;
+    --surface-gradient-hero:
+      radial-gradient(60% 60% at 0% 0%, oklch(0.585 0.233 277 / 0.10), transparent 70%),
+      radial-gradient(60% 60% at 100% 100%, oklch(0.585 0.233 277 / 0.06), transparent 70%);
+    --surface-radius: 0.625rem;
+    --surface-blur: 0px;
+    --surface-grain-opacity: 0;
+    --surface-shadow-card: 0 1px 2px oklch(0 0 0 / 0.04), 0 4px 12px oklch(0 0 0 / 0.04);
+    --surface-shadow-hero: 0 1px 2px oklch(0 0 0 / 0.06), 0 8px 24px oklch(0 0 0 / 0.06);
+    --surface-border-color: transparent;
+    --surface-border-width: 0px;
+  }
+
+  /* Heroes always carry the boosted gradient + boosted shadow. */
+  [data-surface="hero"] {
+    background-image: var(--surface-gradient-hero);
+    box-shadow: var(--surface-shadow-hero);
+    position: relative;
+  }
+
+  /* Scope=all → every shadcn Card gets the gradient unless it has
+     data-surface="flat" or data-surface="hero". */
+  html[data-card-gradient="all"]
+    [data-slot="card"]:not([data-surface="flat"]):not([data-surface="hero"]) {
+    background-image: var(--surface-gradient-card);
+  }
+
+  /* Geometry / shadow / border-emphasis — applied to every card
+     regardless of scope so the look stays consistent across modes. */
+  [data-slot="card"]:not([data-surface="flat"]) {
+    border-radius: var(--surface-radius);
+    box-shadow: var(--surface-shadow-card);
+    border-color: var(--surface-border-color);
+    border-width: var(--surface-border-width);
+    border-style: solid;
+    position: relative;
+  }
+  [data-slot="card"][data-surface="hero"] {
+    border-radius: var(--surface-radius);
+  }
+
+  /* Backdrop blur — only fires when the user picks blur > 0. */
+  html:not([style*="--surface-blur: 0px"])
+    [data-slot="card"]:not([data-surface="flat"]) {
+    backdrop-filter: blur(var(--surface-blur));
+  }
+
+  /* Grain overlay on heroes — fine SVG noise driven by --surface-grain-opacity. */
+  html[data-surface-grain="fine"] [data-surface="hero"]::before,
+  html[data-surface-grain="film"] [data-surface="hero"]::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    opacity: var(--surface-grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+
+  /* Animated drift — opt-in. Honours prefers-reduced-motion. */
+  @keyframes bos-surface-drift {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+  }
+  html[data-surface-anim="on"]
+    [data-slot="card"]:not([data-surface="flat"]) {
+    background-size: 200% 200%;
+    animation: bos-surface-drift 18s ease-in-out infinite;
+  }
+  html[data-surface-anim="on"] [data-surface="hero"] {
+    background-size: 200% 200%;
+    animation: bos-surface-drift 24s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html[data-surface-anim="on"]
+      [data-slot="card"]:not([data-surface="flat"]),
+    html[data-surface-anim="on"] [data-surface="hero"] {
+      animation: none;
+    }
+  }
+}
 
 #root {
   width: 100%;
   min-height: 100vh;
-}
-
-button,
-input,
-select {
-  font-family: inherit;
-}
-
-button,
-a,
-.sb-item,
-.rail-item,
-.tab,
-.hdr-btn,
-.ai-btn,
-.panel-action,
-.demo-pill,
-.v-chip,
-.checkbox-wrap {
-  cursor: pointer;
-}
-
-.field-error.react-show {
-  display: block;
-}
-
-.submit-btn:disabled,
-.hdr-btn:disabled,
-.social-btn:disabled {
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-.api-error {
-  display: block;
-  padding: 9px 10px;
-  margin-bottom: 14px;
-  color: var(--red);
-  background: var(--red-bg);
-  border: 1px solid rgba(220, 38, 38, 0.18);
-  border-radius: 8px;
-  font-size: 12px;
-}
-
-button.back-link,
-button.forgot-link {
-  border: 0;
-  background: transparent;
-  padding: 0;
-  font-family: inherit;
-}
-
-a.back-link,
-a.submit-btn {
-  text-decoration: none;
-}
-
-.field-row > .field {
-  margin-bottom: 0;
-}
-
-.input-wrap .pw-toggle svg {
-  position: static;
-  inset: auto;
-  transform: none;
-  color: currentColor;
-  pointer-events: none;
-}
-
-.input-wrap .pw-toggle {
-  z-index: 2;
-}
-
-.signup-review {
-  display: grid;
-  gap: 8px;
-  margin-top: 14px;
-  padding: 12px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--surface);
-}
-
-.signup-review div {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 12px;
-  color: var(--text3);
-}
-
-.signup-review strong {
-  color: var(--text2);
-  font-weight: 600;
-  text-align: right;
-  overflow-wrap: anywhere;
 }

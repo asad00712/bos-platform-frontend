@@ -1,0 +1,19 @@
+{
+  "appName": "BOS",
+  "tagline": "Sistema operativo",
+  "actions": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "new": "Nuevo",
+    "search": "Buscar",
+    "submit": "Enviar"
+  },
+  "states": {
+    "loading": "Cargando…",
+    "empty": "Aún no hay nada aquí",
+    "error": "Algo salió mal"
+  }
+}

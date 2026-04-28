@@ -1,0 +1,50 @@
+{
+  "title": "Support",
+  "subtitle": "Find answers fast or open a ticket.",
+  "actions": {
+    "newTicket": "New ticket",
+    "viewAll": "View all",
+    "browseAll": "Browse all",
+    "sendReply": "Send reply"
+  },
+  "status": {
+    "open": "Open",
+    "in_progress": "In progress",
+    "waiting": "Waiting",
+    "resolved": "Resolved",
+    "closed": "Closed"
+  },
+  "priority": {
+    "low": "Low",
+    "normal": "Normal",
+    "high": "High",
+    "urgent": "Urgent"
+  },
+  "form": {
+    "subject": "Subject",
+    "subjectPlaceholder": "Short summary of the issue",
+    "category": "Category",
+    "priority": "Priority",
+    "describe": "Describe the issue",
+    "describePlaceholder": "Steps to reproduce, screenshots…"
+  },
+  "tickets": {
+    "title": "Tickets",
+    "search": "Search by number, subject, category…",
+    "empty": "No tickets match",
+    "emptyHint": "When you open a ticket it'll show up here.",
+    "replies": "Replies",
+    "updated": "Updated",
+    "newReply": "Reply to this ticket…",
+    "noReplies": "No replies yet. Add one below."
+  },
+  "home": {
+    "popular": "Popular articles",
+    "recent": "Recent tickets",
+    "search": "What do you need help with?"
+  },
+  "toast": {
+    "created": "Ticket created",
+    "replied": "Reply sent"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "title": "Audit log",
+  "subtitle": "Sensitive actions, sign-ins, and permission changes.",
+  "actions": {
+    "search": "Search summary, actor, resource…",
+    "all": "All"
+  },
+  "action": {
+    "create": "Created",
+    "update": "Updated",
+    "delete": "Deleted",
+    "view": "Viewed",
+    "login": "Logged in",
+    "logout": "Logged out",
+    "permission_change": "Permission change",
+    "export": "Exported",
+    "invite": "Invited"
+  },
+  "resource": {
+    "contact": "Contacts",
+    "appointment": "Appointments",
+    "invoice": "Invoices",
+    "payment": "Payments",
+    "employee": "Employees",
+    "document": "Documents",
+    "message": "Messages",
+    "role": "Roles",
+    "tenant": "Tenant",
+    "session": "Sessions",
+    "system": "System"
+  },
+  "sessions": {
+    "title": "Active sessions",
+    "subtitle": "Devices currently signed in to your tenant.",
+    "thisSession": "This session",
+    "active": "Active"
+  }
+}

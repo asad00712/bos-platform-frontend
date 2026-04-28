@@ -1,0 +1,270 @@
+{
+  "title": "Medical workspace",
+  "actions": {
+    "newPatient": "New patient",
+    "scheduleVisit": "Schedule visit",
+    "openChart": "Open chart",
+    "newRx": "New prescription",
+    "signNote": "Sign note",
+    "signRx": "Sign prescription",
+    "signAndSend": "Sign & send",
+    "saveDraft": "Save draft",
+    "addendum": "Add addendum",
+    "ackAllergies": "I acknowledge",
+    "joinTelehealth": "Join visit",
+    "checkEligibility": "Check eligibility",
+    "breakGlass": "Emergency access"
+  },
+  "patient": {
+    "tabs": {
+      "summary": "Summary",
+      "problems": "Problems",
+      "allergies": "Allergies",
+      "medications": "Medications",
+      "immunizations": "Immunizations",
+      "vitals": "Vitals",
+      "growth": "Growth",
+      "labs": "Labs",
+      "imaging": "Imaging",
+      "history": "History",
+      "documents": "Documents",
+      "encounters": "Encounters",
+      "billing": "Billing"
+    },
+    "fields": {
+      "mrn": "MRN",
+      "dob": "Date of birth",
+      "age": "Age",
+      "sex": "Sex",
+      "gender": "Gender",
+      "pronouns": "Pronouns",
+      "language": "Preferred language",
+      "interpreter": "Interpreter needed",
+      "primaryProvider": "Primary provider",
+      "emergencyContact": "Emergency contact",
+      "race": "Race",
+      "ethnicity": "Ethnicity"
+    }
+  },
+  "encounter": {
+    "status": {
+      "planned": "Planned",
+      "arrived": "Arrived",
+      "in_progress": "In progress",
+      "finished": "Finished",
+      "cancelled": "Cancelled"
+    },
+    "class": {
+      "AMB": "Office",
+      "VR": "Telehealth",
+      "EMER": "Emergency",
+      "IMP": "Inpatient",
+      "HH": "Home health"
+    },
+    "soap": {
+      "subjective": "Subjective",
+      "objective": "Objective",
+      "assessment": "Assessment",
+      "plan": "Plan",
+      "cc": "Chief complaint",
+      "hpi": "History of present illness",
+      "ros": "Review of systems",
+      "exam": "Physical exam"
+    },
+    "noteState": {
+      "draft": "Draft",
+      "pending_cosign": "Pending co-sign",
+      "signed": "Signed"
+    },
+    "signCeremony": {
+      "title": "Review and sign",
+      "warning": "Once signed, the note becomes immutable. Add an addendum for any change.",
+      "confirm": "I confirm and sign",
+      "twoFactor": "Re-enter your password to sign"
+    }
+  },
+  "allergy": {
+    "criticality": {
+      "low": "Low",
+      "high": "High",
+      "unable_to_assess": "Unable to assess"
+    },
+    "severity": {
+      "mild": "Mild",
+      "moderate": "Moderate",
+      "severe": "Severe"
+    },
+    "ack": {
+      "banner": "Allergy alerts on this chart",
+      "subtitle": "Review before placing orders or prescribing.",
+      "noKnown": "No known allergies",
+      "askConfirm": "Confirm with patient on every visit."
+    }
+  },
+  "rx": {
+    "status": {
+      "draft": "Draft",
+      "active": "Active",
+      "on_hold": "On hold",
+      "completed": "Completed",
+      "stopped": "Stopped",
+      "cancelled": "Cancelled"
+    },
+    "sigBuilder": {
+      "dose": "Dose",
+      "route": "Route",
+      "frequency": "Frequency",
+      "duration": "Duration",
+      "prn": "As needed (PRN)",
+      "indication": "Indication",
+      "quantity": "Quantity",
+      "refills": "Refills",
+      "daw": "Dispense as written",
+      "preview": "Sig preview"
+    },
+    "ddi": {
+      "tier": {
+        "contraindicated": "Contraindicated",
+        "severe": "Severe",
+        "moderate": "Moderate",
+        "minor": "Minor"
+      },
+      "overrideReason": "Override reason"
+    },
+    "ceremony": {
+      "title": "Sign prescription",
+      "tdd": "Total daily dose",
+      "perKg": "mg/kg/day",
+      "controlled": "Controlled substance — additional verification required",
+      "pedsWeightGate": "Pediatric weight required to prescribe"
+    }
+  },
+  "lab": {
+    "flag": {
+      "H": "High",
+      "L": "Low",
+      "HH": "Critical high",
+      "LL": "Critical low",
+      "N": "Normal",
+      "A": "Abnormal",
+      "Critical": "Critical"
+    },
+    "status": {
+      "registered": "Ordered",
+      "preliminary": "Preliminary",
+      "final": "Final",
+      "amended": "Amended",
+      "corrected": "Corrected"
+    },
+    "actions": {
+      "sign": "Sign",
+      "forward": "Forward",
+      "patientLetter": "Patient letter",
+      "noteCallback": "Patient notified"
+    }
+  },
+  "imaging": {
+    "modality": {
+      "CR": "Computed radiography",
+      "CT": "CT",
+      "DX": "Digital X-ray",
+      "MG": "Mammography",
+      "MR": "MRI",
+      "NM": "Nuclear medicine",
+      "PT": "PET",
+      "US": "Ultrasound",
+      "XA": "Angiography"
+    }
+  },
+  "order": {
+    "status": {
+      "draft": "Draft",
+      "active": "Active",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "priority": {
+      "routine": "Routine",
+      "urgent": "Urgent",
+      "asap": "ASAP",
+      "stat": "STAT"
+    }
+  },
+  "appointment": {
+    "status": {
+      "proposed": "Proposed",
+      "booked": "Booked",
+      "arrived": "Arrived",
+      "fulfilled": "Fulfilled",
+      "cancelled": "Cancelled",
+      "noshow": "No-show"
+    }
+  },
+  "specialty": {
+    "fm": "Family medicine",
+    "peds": "Pediatrics",
+    "ob": "OB-GYN",
+    "psych": "Psychiatry",
+    "cardio": "Cardiology",
+    "derm": "Dermatology"
+  },
+  "ob": {
+    "ga": "Gestational age",
+    "edd": "EDD",
+    "lmp": "LMP",
+    "gravida": "Gravida",
+    "para": "Para",
+    "tpal": "TPAL",
+    "fundalHeight": "Fundal height",
+    "fhr": "Fetal heart rate",
+    "fetalMovement": "Fetal movement",
+    "trimester": {
+      "T1": "First trimester",
+      "T2": "Second trimester",
+      "T3": "Third trimester"
+    }
+  },
+  "peds": {
+    "growthChart": "Growth chart",
+    "percentile": "Percentile",
+    "weightForAge": "Weight for age",
+    "heightForAge": "Length / height for age",
+    "headCirc": "Head circumference for age",
+    "bmiForAge": "BMI for age",
+    "useWHO": "WHO 0–24 mo",
+    "useCDC": "CDC 2–20 yr",
+    "weightGate": {
+      "title": "Weight required",
+      "body": "A current weight is required for pediatric prescribing. Please record one before continuing.",
+      "stale": "Weight is more than {{days}} days old."
+    }
+  },
+  "psych": {
+    "phq9": "PHQ-9 depression screen",
+    "gad7": "GAD-7 anxiety screen",
+    "cssrs": "Columbia Suicide Severity Rating Scale",
+    "mse": "Mental status exam"
+  },
+  "audit": {
+    "peek": "Who has viewed this chart?",
+    "breakGlassReason": "Reason for emergency access",
+    "breakGlassExpires": "Access window ends in {{minutes}} minutes"
+  },
+  "portal": {
+    "welcome": "Welcome back",
+    "messages": "Messages",
+    "results": "Test results",
+    "rx": "Medications",
+    "billing": "Billing",
+    "appointments": "Appointments",
+    "results_pending": "Result not yet released by your provider"
+  },
+  "toast": {
+    "noteSaved": "Draft saved",
+    "noteSigned": "Note signed",
+    "rxSent": "Prescription sent to {{pharmacy}}",
+    "refillApproved": "Refill approved",
+    "refillDenied": "Refill denied",
+    "weightRecorded": "Weight recorded"
+  }
+}
