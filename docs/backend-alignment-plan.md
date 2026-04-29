@@ -122,8 +122,20 @@
 - [ ] `LeadWebhooksPage` (CRUD + regenerate token + copy public ingestion URL)
 - [ ] Token reveal/hide UX
 
-### Phase J — Tasks (deferred until BE tasks controller lands)
-- [ ] Mocked tasks page if BE not ready
+### Phase J — Tasks ✅ (FE-stubbed; BE controller pending)
+- [x] `src/features/tasks/` — types, api (mock-only via `TASKS_LIVE` flag), hooks
+- [x] `TasksPage` (`/app/tasks`) — search + priority + assignee filters, tabs
+      for Open / Done / All, branch-scoped via active-branch store
+- [x] `TaskRow` — checkbox toggle, priority chip, overdue red, optional
+      related-entity link to contact / lead, edit/delete via dropdown
+- [x] `TaskFormDialog` — title, description, status, priority, dueAt,
+      assignee, optional preset-related linkage
+- [x] `RelatedTasksPanel` — slim list mounted on Contact detail (Tasks tab)
+      and Lead detail (Tasks tab); creates pre-link the new task
+- [x] Sidebar nav: "Tasks" entry under modules group
+- [x] tsc clean
+- When BE ships `/tasks`: flip `TASKS_LIVE` in `tasks.api.ts` and the
+      adapter pipes UPPERCASE enum values through.
 
 ---
 

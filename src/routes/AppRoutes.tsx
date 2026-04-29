@@ -81,6 +81,7 @@ import {
   LeadAssignmentConfigPage,
   LeadWebhooksPage,
 } from '@/features/leadAssignment'
+import { TasksPage } from '@/features/tasks'
 import { AuditLogPage, SessionsPage } from '@/features/audit'
 import {
   NotificationPreferencesPage,
@@ -229,6 +230,7 @@ export function AppRoutes() {
           <Route path={routes.app.root()} element={<AppShell />}>
             <Route index element={<Navigate to={routes.app.dashboard()} replace />} />
             <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="tasks" element={<TasksPage />} />
 
             {/* CRM */}
             <Route path="crm" element={<ContactsListPage />} />

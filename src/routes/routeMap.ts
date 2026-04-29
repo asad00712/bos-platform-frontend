@@ -29,6 +29,7 @@ export const routes = {
   app: {
     root: () => APP,
     dashboard: () => join(APP, 'dashboard'),
+    tasks: () => join(APP, 'tasks'),
 
     crm: {
       root: () => join(APP, 'crm'),

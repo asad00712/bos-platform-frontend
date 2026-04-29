@@ -63,6 +63,7 @@ import {
   useUpdateLead,
 } from '../hooks'
 import { ActivityTimeline } from '@/features/activities'
+import { RelatedTasksPanel } from '@/features/tasks'
 import { LeadForm } from '../components/LeadForm'
 import { LeadPriorityBadge } from '../components/LeadPriorityBadge'
 import { LeadStatusChip } from '../components/LeadStatusChip'
@@ -285,6 +286,7 @@ export function LeadDetailPage() {
           <Tabs defaultValue="activity">
             <TabsList>
               <TabsTrigger value="activity">Activity</TabsTrigger>
+              <TabsTrigger value="tasks">Tasks</TabsTrigger>
               <TabsTrigger value="notes">Notes</TabsTrigger>
             </TabsList>
 
@@ -294,6 +296,10 @@ export function LeadDetailPage() {
                   <ActivityTimeline entity="lead" entityId={l.id} />
                 </CardContent>
               </Card>
+            </TabsContent>
+
+            <TabsContent value="tasks" className="mt-4">
+              <RelatedTasksPanel entity="lead" entityId={l.id} />
             </TabsContent>
 
             <TabsContent value="notes" className="mt-4">

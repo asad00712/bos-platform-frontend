@@ -410,3 +410,27 @@ export type LeadWebhook = {
   createdAt: string
   updatedAt: string
 }
+
+/* ─────────────────── tasks ─────────────────── */
+
+export type TaskPriority = 'low' | 'medium' | 'high'
+
+export type TaskRelatedEntity = 'contact' | 'lead'
+
+export type Task = {
+  id: string
+  branchId: string
+  title: string
+  description: string | null
+  status: TaskStatus
+  priority: TaskPriority
+  dueAt: string | null
+  completedAt: string | null
+  assigneeUserId: string | null
+  createdByUserId: string
+  /** Optional soft link to a contact / lead. */
+  relatedEntity: TaskRelatedEntity | null
+  relatedEntityId: string | null
+  createdAt: string
+  updatedAt: string
+}

@@ -59,6 +59,7 @@ import {
 } from '../hooks'
 import type { ContactInput } from '../api/crm.contracts'
 import { ActivityTimeline } from '@/features/activities'
+import { RelatedTasksPanel } from '@/features/tasks'
 import { ContactForm } from '../components/ContactForm'
 import { ContactStatusBadge } from '../components/ContactStatusBadge'
 
@@ -274,6 +275,7 @@ export function ContactDetailPage() {
           <Tabs defaultValue="activity">
             <TabsList>
               <TabsTrigger value="activity">Activity</TabsTrigger>
+              <TabsTrigger value="tasks">Tasks</TabsTrigger>
               <TabsTrigger value="notes">Notes</TabsTrigger>
               <TabsTrigger value="appointments">
                 <Calendar className="size-3" /> Appointments
@@ -289,6 +291,10 @@ export function ContactDetailPage() {
                   <ActivityTimeline entity="contact" entityId={c.id} />
                 </CardContent>
               </Card>
+            </TabsContent>
+
+            <TabsContent value="tasks" className="mt-4">
+              <RelatedTasksPanel entity="contact" entityId={c.id} />
             </TabsContent>
 
             <TabsContent value="notes" className="mt-4">
