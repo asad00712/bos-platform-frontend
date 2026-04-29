@@ -379,6 +379,7 @@ export function ContactDetailPage() {
               birthday: c.birthday ?? undefined,
               tagIds: c.tagIds,
               notes: c.notes ?? '',
+              customFieldValues: c.customFieldValues,
             }}
             onSubmit={handleEditSubmit}
             onCancel={() => setEditOpen(false)}

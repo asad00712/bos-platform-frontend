@@ -183,6 +183,8 @@ export type Lead = {
   notes: string | null
   convertedAt: string | null
   convertedByUserId: string | null
+  /** Per-tenant custom-field values, keyed by field.key. */
+  customFieldValues?: Record<string, unknown>
   createdAt: string
   updatedAt: string
 }

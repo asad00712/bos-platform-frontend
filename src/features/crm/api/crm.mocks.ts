@@ -15,7 +15,7 @@ const DEFAULT_BRANCH = 'br-main'
 
 /* ── lookup tables (mock equivalents of BE entities) ─────────────────────── */
 
-const tagLibrary: TagLookup[] = [
+let tagLibrary: TagLookup[] = [
   { id: 'tag-vip', name: 'vip', color: 'oklch(0.7 0.18 50)' },
   { id: 'tag-recall-due', name: 'recall-due', color: 'oklch(0.65 0.13 220)' },
   { id: 'tag-high-value', name: 'high-value', color: 'oklch(0.7 0.16 295)' },
@@ -24,7 +24,7 @@ const tagLibrary: TagLookup[] = [
   { id: 'tag-follow-up', name: 'follow-up', color: 'oklch(0.7 0.13 30)' },
 ]
 
-const sourceLibrary: SourceLookup[] = [
+let sourceLibrary: SourceLookup[] = [
   { id: 'src-manual', name: 'Manual', isSystem: true },
   { id: 'src-website', name: 'Website', isSystem: true },
   { id: 'src-import', name: 'Import', isSystem: true },
@@ -69,6 +69,7 @@ const seed: Contact[] = [
     preferredLocale: 'en-US',
     lastActivityAt: hoursAgo(2),
     tagIds: ['tag-vip', 'tag-recall-due'],
+    customFieldValues: { insuranceProvider: 'aetna', allergies: 'Latex' } as Record<string, unknown>,
     createdAt: daysAgo(220),
     updatedAt: hoursAgo(2),
   },
@@ -260,6 +261,7 @@ export const crmMocks = {
       preferredLocale: input.preferredLocale ?? null,
       lastActivityAt: now,
       tagIds: input.tagIds ?? [],
+      customFieldValues: input.customFieldValues ?? {},
       createdAt: now,
       updatedAt: now,
     }
@@ -300,6 +302,7 @@ export const crmMocks = {
           ? (patch.preferredLocale || null)
           : current.preferredLocale,
       tagIds: patch.tagIds ?? current.tagIds,
+      customFieldValues: patch.customFieldValues ?? current.customFieldValues,
       lastActivityAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     }
@@ -393,6 +396,56 @@ export const crmMocks = {
   },
   owners(): OwnerLookup[] {
     return ownerLibrary
+  },
+
+  /* tag CRUD ─────────────────────────────────────────────────────────── */
+  createTag(input: { name: string; color?: string | null }): TagLookup {
+    const tag: TagLookup = {
+      id: `tag-${Date.now()}`,
+      name: input.name,
+      color: input.color ?? null,
+    }
+    tagLibrary = [...tagLibrary, tag]
+    return tag
+  },
+  updateTag(id: string, patch: Partial<{ name: string; color: string | null }>): TagLookup | null {
+    const idx = tagLibrary.findIndex((t) => t.id === id)
+    if (idx < 0) return null
+    tagLibrary[idx] = { ...tagLibrary[idx], ...patch }
+    return tagLibrary[idx]
+  },
+  removeTag(id: string): boolean {
+    const before = tagLibrary.length
+    tagLibrary = tagLibrary.filter((t) => t.id !== id)
+    /* unset on contacts */
+    store = store.map((c) => ({ ...c, tagIds: c.tagIds.filter((tid) => tid !== id) }))
+    return tagLibrary.length < before
+  },
+
+  /* source CRUD ──────────────────────────────────────────────────────── */
+  createSource(input: { name: string }): SourceLookup {
+    const src: SourceLookup = {
+      id: `src-${Date.now()}`,
+      name: input.name,
+      isSystem: false,
+    }
+    sourceLibrary = [...sourceLibrary, src]
+    return src
+  },
+  updateSource(id: string, patch: Partial<{ name: string }>): SourceLookup | null {
+    const idx = sourceLibrary.findIndex((s) => s.id === id)
+    if (idx < 0) return null
+    sourceLibrary[idx] = { ...sourceLibrary[idx], ...patch }
+    return sourceLibrary[idx]
+  },
+  removeSource(id: string): boolean {
+    const target = sourceLibrary.find((s) => s.id === id)
+    if (!target || target.isSystem) return false
+    const before = sourceLibrary.length
+    sourceLibrary = sourceLibrary.filter((s) => s.id !== id)
+    /* unset on contacts */
+    store = store.map((c) => (c.sourceId === id ? { ...c, sourceId: null } : c))
+    return sourceLibrary.length < before
   },
 }
 

@@ -41,6 +41,8 @@ export const contactSchema = z.object({
   status: contactStatusSchema,
   ownerUserId: z.string().nullable(),
   notes: z.string().nullable(),
+  /** Per-tenant custom-field values, keyed by field.key. */
+  customFieldValues: z.record(z.string(), z.unknown()).optional(),
   /* FE-only --------------------------------------- */
   /** Per-vertical sub-classification (Patient/Student/Client/etc). */
   vertical: z.string().nullable(),
@@ -96,6 +98,7 @@ export const contactInputSchema = z.object({
   birthday: z.string().optional(),
   preferredLocale: z.string().optional(),
   tagIds: z.array(z.string()).default([]),
+  customFieldValues: z.record(z.string(), z.unknown()).optional(),
 })
 export type ContactInput = z.infer<typeof contactInputSchema>
 

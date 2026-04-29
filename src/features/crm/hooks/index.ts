@@ -132,3 +132,90 @@ export function useDeleteContact(tenantId: string) {
     },
   })
 }
+
+/* ─────────────────────── tag mutations ─────────────────────── */
+
+export function useCreateTag(tenantId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (input: { name: string; color?: string | null }) =>
+      crmApi.createTag(input),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ['crm.tags', tenantId] })
+    },
+    onError: (error: Error) => {
+      toast.error('Could not create tag', { description: error.message })
+    },
+  })
+}
+
+export function useUpdateTag(tenantId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, patch }: { id: string; patch: Partial<{ name: string; color: string | null }> }) =>
+      crmApi.updateTag(id, patch),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ['crm.tags', tenantId] })
+    },
+    onError: (error: Error) => {
+      toast.error('Could not update tag', { description: error.message })
+    },
+  })
+}
+
+export function useDeleteTag(tenantId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: string) => crmApi.removeTag(id),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ['crm.tags', tenantId] })
+      void qc.invalidateQueries({ queryKey: ['crm.contacts', tenantId] })
+    },
+    onError: (error: Error) => {
+      toast.error('Could not delete tag', { description: error.message })
+    },
+  })
+}
+
+/* ─────────────────────── source mutations ─────────────────────── */
+
+export function useCreateSource(tenantId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (input: { name: string }) => crmApi.createSource(input),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ['crm.sources', tenantId] })
+    },
+    onError: (error: Error) => {
+      toast.error('Could not create source', { description: error.message })
+    },
+  })
+}
+
+export function useUpdateSource(tenantId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, patch }: { id: string; patch: Partial<{ name: string }> }) =>
+      crmApi.updateSource(id, patch),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ['crm.sources', tenantId] })
+    },
+    onError: (error: Error) => {
+      toast.error('Could not update source', { description: error.message })
+    },
+  })
+}
+
+export function useDeleteSource(tenantId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: string) => crmApi.removeSource(id),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ['crm.sources', tenantId] })
+      void qc.invalidateQueries({ queryKey: ['crm.contacts', tenantId] })
+    },
+    onError: (error: Error) => {
+      toast.error('Could not delete source', { description: error.message })
+    },
+  })
+}

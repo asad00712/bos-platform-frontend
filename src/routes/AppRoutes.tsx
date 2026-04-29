@@ -74,6 +74,8 @@ import {
   LeadDetailPage,
   LeadStatusesPage,
 } from '@/features/leads'
+import { TagsPage, SourcesPage } from '@/features/crm'
+import { CustomFieldsPage } from '@/features/customFields'
 import { AuditLogPage, SessionsPage } from '@/features/audit'
 import {
   NotificationPreferencesPage,
@@ -365,6 +367,9 @@ export function AppRoutes() {
               <Route path="organization" element={<OrganizationSettingsPage />} />
               <Route path="branding" element={<BrandingSettingsPage />} />
               <Route path="branches" element={<BranchesPage />} />
+              <Route path="tags" element={<TagsPage />} />
+              <Route path="sources" element={<SourcesPage />} />
+              <Route path="custom-fields" element={<CustomFieldsPage />} />
               <Route path="members" element={<MembersPage />} />
               <Route path="roles" element={<RolesPage />} />
               <Route path="billing" element={<PlanBillingPage />} />

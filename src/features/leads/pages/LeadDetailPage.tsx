@@ -342,6 +342,7 @@ export function LeadDetailPage() {
               estimatedValue: l.estimatedValue ?? undefined,
               ownerUserId: l.ownerUserId ?? undefined,
               notes: l.notes ?? '',
+              customFieldValues: l.customFieldValues,
             }}
             onSubmit={handleEditSubmit}
             onCancel={() => setEditOpen(false)}

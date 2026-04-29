@@ -7,8 +7,11 @@ import {
   Lock,
   Palette,
   Plug,
+  Radio,
   ShieldCheck,
   Sliders,
+  Sparkles,
+  Tag,
   ToggleLeft,
   Users,
   Wallet,
@@ -23,7 +26,7 @@ type NavEntry = {
   label: string
   Icon: LucideIcon
   /** Section grouping label. */
-  group: 'workspace' | 'team' | 'platform'
+  group: 'workspace' | 'team' | 'data' | 'platform'
 }
 
 const ENTRIES: NavEntry[] = [
@@ -32,6 +35,9 @@ const ENTRIES: NavEntry[] = [
   { href: routes.app.settings.branding(), label: 'Branding', Icon: Palette, group: 'workspace' },
   { href: routes.app.settings.members(), label: 'Members', Icon: Users, group: 'team' },
   { href: routes.app.settings.roles(), label: 'Roles & permissions', Icon: ShieldCheck, group: 'team' },
+  { href: routes.app.settings.tags(), label: 'Tags', Icon: Tag, group: 'data' },
+  { href: routes.app.settings.sources(), label: 'Contact sources', Icon: Radio, group: 'data' },
+  { href: routes.app.settings.customFields(), label: 'Custom fields', Icon: Sparkles, group: 'data' },
   { href: routes.app.settings.billing(), label: 'Plan & billing', Icon: Wallet, group: 'workspace' },
   { href: '/app/settings/preferences', label: 'Preferences', Icon: Sliders, group: 'workspace' },
   { href: routes.app.settings.integrations(), label: 'Integrations', Icon: Plug, group: 'platform' },
@@ -44,6 +50,7 @@ const ENTRIES: NavEntry[] = [
 const GROUPS: { id: NavEntry['group']; label: string }[] = [
   { id: 'workspace', label: 'Workspace' },
   { id: 'team', label: 'Team' },
+  { id: 'data', label: 'CRM data' },
   { id: 'platform', label: 'Platform' },
 ]
 

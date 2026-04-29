@@ -23,8 +23,14 @@ import {
 import { Button } from '@/shared/ui/button'
 import { Badge } from '@/shared/ui/badge'
 
+import { useState } from 'react'
+
 import { useTenant } from '@/shared/hooks/useTenant'
 import { useActiveBranchStore } from '@/stores/activeBranch.store'
+import {
+  CustomFieldsRenderer,
+  type CustomFieldValueMap,
+} from '@/features/customFields'
 import { useOwnerLookup, useSourceLookup, useTagLookup } from '../hooks'
 
 import { contactStatusSchema, type ContactInput } from '../api/crm.contracts'
@@ -83,6 +89,10 @@ export function ContactForm({
   const tags = tagsQ.data ?? []
   const sources = sourcesQ.data ?? []
   const owners = ownersQ.data ?? []
+
+  const [customValues, setCustomValues] = useState<CustomFieldValueMap>(
+    (defaultValues?.customFieldValues as CustomFieldValueMap | undefined) ?? {},
+  )
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -150,6 +160,7 @@ export function ContactForm({
       status: values.status,
       tagIds: values.tagIds,
       notes: values.notes || undefined,
+      customFieldValues: customValues,
     })
   }
 
@@ -480,6 +491,12 @@ export function ContactForm({
             )}
           </div>
         </div>
+
+        <CustomFieldsRenderer
+          entity="contact"
+          value={customValues}
+          onChange={setCustomValues}
+        />
 
         <FormField
           control={form.control}

@@ -130,4 +130,73 @@ export const crmApi = {
     }
     return apiRequest<OwnerLookup[]>('/staff')
   },
+
+  /* tag mutations ────────────────────────────────────────────────── */
+  async createTag(input: { name: string; color?: string | null }): Promise<TagLookup> {
+    if (env.useMocks) {
+      await delay()
+      return crmMocks.createTag(input)
+    }
+    return apiRequest<TagLookup>('/tags', {
+      method: 'POST',
+      body: JSON.stringify(input),
+    })
+  },
+  async updateTag(
+    id: string,
+    patch: Partial<{ name: string; color: string | null }>,
+  ): Promise<TagLookup> {
+    if (env.useMocks) {
+      await delay()
+      const updated = crmMocks.updateTag(id, patch)
+      if (!updated) throw new Error('Tag not found')
+      return updated
+    }
+    return apiRequest<TagLookup>(`/tags/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(patch),
+    })
+  },
+  async removeTag(id: string): Promise<void> {
+    if (env.useMocks) {
+      await delay()
+      const ok = crmMocks.removeTag(id)
+      if (!ok) throw new Error('Tag not found')
+      return
+    }
+    await apiRequest<void>(`/tags/${id}`, { method: 'DELETE' })
+  },
+
+  /* source mutations ─────────────────────────────────────────────── */
+  async createSource(input: { name: string }): Promise<SourceLookup> {
+    if (env.useMocks) {
+      await delay()
+      return crmMocks.createSource(input)
+    }
+    return apiRequest<SourceLookup>('/contact-sources', {
+      method: 'POST',
+      body: JSON.stringify(input),
+    })
+  },
+  async updateSource(id: string, patch: Partial<{ name: string }>): Promise<SourceLookup> {
+    if (env.useMocks) {
+      await delay()
+      const updated = crmMocks.updateSource(id, patch)
+      if (!updated) throw new Error('Source not found')
+      return updated
+    }
+    return apiRequest<SourceLookup>(`/contact-sources/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(patch),
+    })
+  },
+  async removeSource(id: string): Promise<void> {
+    if (env.useMocks) {
+      await delay()
+      const ok = crmMocks.removeSource(id)
+      if (!ok) throw new Error('Cannot remove system source')
+      return
+    }
+    await apiRequest<void>(`/contact-sources/${id}`, { method: 'DELETE' })
+  },
 }

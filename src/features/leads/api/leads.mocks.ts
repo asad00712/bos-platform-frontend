@@ -314,6 +314,7 @@ export const leadMocks = {
       notes: input.notes ?? null,
       convertedAt: null,
       convertedByUserId: null,
+      customFieldValues: input.customFieldValues ?? {},
       createdAt: now,
       updatedAt: now,
     }
@@ -340,6 +341,7 @@ export const leadMocks = {
       ownerUserId:
         patch.ownerUserId !== undefined ? (patch.ownerUserId || null) : current.ownerUserId,
       notes: patch.notes !== undefined ? (patch.notes || null) : current.notes,
+      customFieldValues: patch.customFieldValues ?? current.customFieldValues,
       updatedAt: new Date().toISOString(),
     }
     leadStore[idx] = next

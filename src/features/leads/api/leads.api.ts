@@ -29,6 +29,7 @@ export type LeadInput = {
   estimatedValue?: number
   ownerUserId?: string
   notes?: string
+  customFieldValues?: Record<string, unknown>
 }
 
 export type LeadFilters = {

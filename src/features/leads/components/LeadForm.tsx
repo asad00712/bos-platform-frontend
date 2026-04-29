@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -27,6 +28,10 @@ import {
   useOwnerLookup,
   useSourceLookup,
 } from '@/features/crm/hooks'
+import {
+  CustomFieldsRenderer,
+  type CustomFieldValueMap,
+} from '@/features/customFields'
 
 import type { LeadInput } from '../api/leads.api'
 import { useLeadStatuses } from '../hooks'
@@ -76,6 +81,10 @@ export function LeadForm({
   const ownersQ = useOwnerLookup(tenant.id)
   const statusesQ = useLeadStatuses(tenant.id)
 
+  const [customValues, setCustomValues] = useState<CustomFieldValueMap>(
+    (defaultValues?.customFieldValues as CustomFieldValueMap | undefined) ?? {},
+  )
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -115,6 +124,7 @@ export function LeadForm({
         numeric !== undefined && Number.isFinite(numeric) ? numeric : undefined,
       ownerUserId: values.ownerUserId || undefined,
       notes: values.notes || undefined,
+      customFieldValues: customValues,
     })
   }
 
@@ -332,6 +342,12 @@ export function LeadForm({
             )}
           />
         </div>
+
+        <CustomFieldsRenderer
+          entity="lead"
+          value={customValues}
+          onChange={setCustomValues}
+        />
 
         <FormField
           control={form.control}
