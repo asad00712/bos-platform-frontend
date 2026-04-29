@@ -76,6 +76,7 @@ import {
 } from '@/features/leads'
 import { TagsPage, SourcesPage } from '@/features/crm'
 import { CustomFieldsPage } from '@/features/customFields'
+import { StaffPage, InviteAcceptPage } from '@/features/staff'
 import { AuditLogPage, SessionsPage } from '@/features/audit'
 import {
   NotificationPreferencesPage,
@@ -206,6 +207,7 @@ export function AppRoutes() {
         <Route path={routes.verify2fa()} element={<VerifyTwoFactorPage />} />
         <Route path={routes.forgotPasswordSent()} element={<ForgotPasswordSentPage />} />
         <Route path={routes.resetPasswordDone()} element={<ResetPasswordDonePage />} />
+        <Route path={routes.acceptInvite()} element={<InviteAcceptPage />} />
         <Route path="/booking/:tenantSlug" element={<PublicBookingPage />} />
 
         {/* Patient portal — distinct sub-app, lean shell */}
@@ -371,6 +373,7 @@ export function AppRoutes() {
               <Route path="sources" element={<SourcesPage />} />
               <Route path="custom-fields" element={<CustomFieldsPage />} />
               <Route path="members" element={<MembersPage />} />
+              <Route path="staff" element={<StaffPage />} />
               <Route path="roles" element={<RolesPage />} />
               <Route path="billing" element={<PlanBillingPage />} />
               <Route path="integrations" element={<IntegrationsPage />} />

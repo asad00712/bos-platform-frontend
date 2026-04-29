@@ -33,7 +33,7 @@ const ENTRIES: NavEntry[] = [
   { href: routes.app.settings.organization(), label: 'Organization', Icon: Building2, group: 'workspace' },
   { href: routes.app.settings.branches(), label: 'Branches', Icon: Building2, group: 'workspace' },
   { href: routes.app.settings.branding(), label: 'Branding', Icon: Palette, group: 'workspace' },
-  { href: routes.app.settings.members(), label: 'Members', Icon: Users, group: 'team' },
+  { href: routes.app.settings.staff(), label: 'Staff', Icon: Users, group: 'team' },
   { href: routes.app.settings.roles(), label: 'Roles & permissions', Icon: ShieldCheck, group: 'team' },
   { href: routes.app.settings.tags(), label: 'Tags', Icon: Tag, group: 'data' },
   { href: routes.app.settings.sources(), label: 'Contact sources', Icon: Radio, group: 'data' },

@@ -24,6 +24,8 @@ export const routes = {
   resetPasswordDone: () => '/reset-password/done',
   publicBooking: (tenantSlug: string) => join('booking', tenantSlug),
 
+  acceptInvite: () => '/accept-invite',
+
   app: {
     root: () => APP,
     dashboard: () => join(APP, 'dashboard'),
@@ -78,6 +80,7 @@ export const routes = {
       branding: () => join(APP, 'settings', 'branding'),
       branches: () => join(APP, 'settings', 'branches'),
       members: () => join(APP, 'settings', 'members'),
+      staff: () => join(APP, 'settings', 'staff'),
       roles: () => join(APP, 'settings', 'roles'),
       tags: () => join(APP, 'settings', 'tags'),
       sources: () => join(APP, 'settings', 'sources'),
