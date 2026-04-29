@@ -68,6 +68,12 @@ import {
   SettingsLayout,
 } from '@/features/settings'
 import { BranchesPage } from '@/features/branches'
+import {
+  LeadsListPage,
+  LeadKanbanPage,
+  LeadDetailPage,
+  LeadStatusesPage,
+} from '@/features/leads'
 import { AuditLogPage, SessionsPage } from '@/features/audit'
 import {
   NotificationPreferencesPage,
@@ -221,6 +227,10 @@ export function AppRoutes() {
             <Route path="crm/contacts" element={<ContactsListPage />} />
             <Route path="crm/contacts/:id" element={<ContactDetailPage />} />
             <Route path="crm/segments" element={<SegmentsPage />} />
+            <Route path="crm/leads" element={<LeadsListPage />} />
+            <Route path="crm/leads/kanban" element={<LeadKanbanPage />} />
+            <Route path="crm/leads/statuses" element={<LeadStatusesPage />} />
+            <Route path="crm/leads/:id" element={<LeadDetailPage />} />
 
             {/* Scheduling */}
             <Route path="scheduling" element={<ScheduleCalendarPage />} />

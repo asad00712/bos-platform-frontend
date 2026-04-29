@@ -34,6 +34,11 @@ export const routes = {
       contactNew: () => join(APP, 'crm', 'contacts', 'new'),
       contact: (id: string) => join(APP, 'crm', 'contacts', id),
       segments: () => join(APP, 'crm', 'segments'),
+      leads: () => join(APP, 'crm', 'leads'),
+      leadKanban: () => join(APP, 'crm', 'leads', 'kanban'),
+      leadNew: () => join(APP, 'crm', 'leads', 'new'),
+      lead: (id: string) => join(APP, 'crm', 'leads', id),
+      leadStatuses: () => join(APP, 'crm', 'leads', 'statuses'),
     },
 
     scheduling: {

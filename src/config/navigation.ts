@@ -73,6 +73,12 @@ export function buildNavigation(vertical: VerticalType): NavigationGroup[] {
           permission: 'crm:read',
         },
         {
+          i18nKey: 'navigation.leads',
+          path: routes.app.crm.leads(),
+          icon: Workflow,
+          permission: 'crm:read',
+        },
+        {
           i18nKey: 'navigation.scheduling',
           path: routes.app.scheduling.root(),
           icon: CalendarDays,
