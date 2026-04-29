@@ -41,6 +41,8 @@ export const routes = {
       leadNew: () => join(APP, 'crm', 'leads', 'new'),
       lead: (id: string) => join(APP, 'crm', 'leads', id),
       leadStatuses: () => join(APP, 'crm', 'leads', 'statuses'),
+      leadAssignment: () => join(APP, 'crm', 'leads', 'assignment'),
+      leadWebhooks: () => join(APP, 'crm', 'leads', 'webhooks'),
     },
 
     scheduling: {

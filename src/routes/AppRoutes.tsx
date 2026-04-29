@@ -77,6 +77,10 @@ import {
 import { TagsPage, SourcesPage } from '@/features/crm'
 import { CustomFieldsPage } from '@/features/customFields'
 import { StaffPage, InviteAcceptPage } from '@/features/staff'
+import {
+  LeadAssignmentConfigPage,
+  LeadWebhooksPage,
+} from '@/features/leadAssignment'
 import { AuditLogPage, SessionsPage } from '@/features/audit'
 import {
   NotificationPreferencesPage,
@@ -234,6 +238,8 @@ export function AppRoutes() {
             <Route path="crm/leads" element={<LeadsListPage />} />
             <Route path="crm/leads/kanban" element={<LeadKanbanPage />} />
             <Route path="crm/leads/statuses" element={<LeadStatusesPage />} />
+            <Route path="crm/leads/assignment" element={<LeadAssignmentConfigPage />} />
+            <Route path="crm/leads/webhooks" element={<LeadWebhooksPage />} />
             <Route path="crm/leads/:id" element={<LeadDetailPage />} />
 
             {/* Scheduling */}

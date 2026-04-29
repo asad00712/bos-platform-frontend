@@ -55,7 +55,13 @@ export function LeadsListPage() {
               </Link>
             </Button>
             <Button variant="outline" size="sm" asChild>
-              <Link to={routes.app.crm.leadStatuses()}>Pipeline statuses</Link>
+              <Link to={routes.app.crm.leadStatuses()}>Statuses</Link>
+            </Button>
+            <Button variant="outline" size="sm" asChild>
+              <Link to={routes.app.crm.leadAssignment()}>Assignment</Link>
+            </Button>
+            <Button variant="outline" size="sm" asChild>
+              <Link to={routes.app.crm.leadWebhooks()}>Webhooks</Link>
             </Button>
             {canCreate ? (
               <NewLeadDialog
