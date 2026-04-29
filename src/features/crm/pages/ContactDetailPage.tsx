@@ -58,7 +58,7 @@ import {
   useUpdateContact,
 } from '../hooks'
 import type { ContactInput } from '../api/crm.contracts'
-import { ContactActivityTimeline } from '../components/ContactActivityTimeline'
+import { ActivityTimeline } from '@/features/activities'
 import { ContactForm } from '../components/ContactForm'
 import { ContactStatusBadge } from '../components/ContactStatusBadge'
 
@@ -286,7 +286,7 @@ export function ContactDetailPage() {
             <TabsContent value="activity" className="mt-4">
               <Card>
                 <CardContent className="p-5">
-                  <ContactActivityTimeline contactId={c.id} />
+                  <ActivityTimeline entity="contact" entityId={c.id} />
                 </CardContent>
               </Card>
             </TabsContent>

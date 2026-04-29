@@ -62,7 +62,7 @@ import {
   useSetLeadStatus,
   useUpdateLead,
 } from '../hooks'
-import { LeadActivityList } from '../components/LeadActivityList'
+import { ActivityTimeline } from '@/features/activities'
 import { LeadForm } from '../components/LeadForm'
 import { LeadPriorityBadge } from '../components/LeadPriorityBadge'
 import { LeadStatusChip } from '../components/LeadStatusChip'
@@ -291,7 +291,7 @@ export function LeadDetailPage() {
             <TabsContent value="activity" className="mt-4">
               <Card>
                 <CardContent className="p-5">
-                  <LeadActivityList leadId={l.id} />
+                  <ActivityTimeline entity="lead" entityId={l.id} />
                 </CardContent>
               </Card>
             </TabsContent>
